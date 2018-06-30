@@ -60,7 +60,7 @@ Optional: true,
 
 "restart_timeout": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 

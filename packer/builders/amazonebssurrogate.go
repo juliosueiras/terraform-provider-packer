@@ -225,7 +225,7 @@ Optional: true,
 
 "windows_password_timeout": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 
@@ -273,7 +273,7 @@ Optional: true,
 
 "ssh_timeout": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 
@@ -363,13 +363,13 @@ Optional: true,
 
 "ssh_keep_alive_interval": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 
 "ssh_read_write_timeout": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 
@@ -399,7 +399,7 @@ Optional: true,
 
 "winrm_timeout": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 
@@ -436,14 +436,24 @@ Optional: true,
 "ami_block_device_mappings": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Elem: &schema.Schema{
+				Type: schema.TypeList,
+				Elem: &schema.Schema{
+					Type: schema.TypeMap,
+				},
+			},
 
 		},
 
 "launch_block_device_mappings": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Elem: &schema.Schema{
+				Type: schema.TypeList,
+				Elem: &schema.Schema{
+					Type: schema.TypeMap,
+				},
+			},
 
 		},
 

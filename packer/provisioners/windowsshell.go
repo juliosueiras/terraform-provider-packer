@@ -67,7 +67,7 @@ Optional: true,
 
 "start_retry_timeout": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 

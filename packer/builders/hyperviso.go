@@ -180,7 +180,7 @@ Optional: true,
 
 "ssh_timeout": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 
@@ -270,13 +270,13 @@ Optional: true,
 
 "ssh_keep_alive_interval": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 
 "ssh_read_write_timeout": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 
@@ -306,7 +306,7 @@ Optional: true,
 
 "winrm_timeout": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 
@@ -464,7 +464,7 @@ Optional: true,
 "disk_additional_size": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Elem: &schema.Schema{Type: schema.TypeInt},
 
 		},
 

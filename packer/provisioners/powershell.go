@@ -79,7 +79,7 @@ Optional: true,
 
 "start_retry_timeout": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeString,
 
 		},
 
@@ -104,7 +104,7 @@ Optional: true,
 "valid_exit_codes": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Elem: &schema.Schema{Type: schema.TypeInt},
 
 		},
 

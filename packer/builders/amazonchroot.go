@@ -45,7 +45,12 @@ Optional: true,
 "ami_block_device_mappings": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Elem: &schema.Schema{
+				Type: schema.TypeList,
+				Elem: &schema.Schema{
+					Type: schema.TypeMap,
+				},
+			},
 
 		},
 
@@ -220,7 +225,12 @@ Optional: true,
 "chroot_mounts": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Elem: &schema.Schema{
+				Type: schema.TypeList,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
+			},
 
 		},
 

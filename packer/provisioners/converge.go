@@ -73,7 +73,12 @@ Optional: true,
 "module_dirs": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Elem: &schema.Schema{
+				Type: schema.TypeList,
+				Elem: &schema.Schema{
+					Type: schema.TypeMap,
+				},
+			},
 
 		},
 
