@@ -157,7 +157,7 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 			}
 		}
 
-		provisioners = make([]map[string]interface{}, totalOrder)
+		provisioners = make([]map[string]interface{}, totalOrder-1)
 
 		for i, e := range v.(map[string]interface{}) {
 			log.Println(e.([]interface{}))
