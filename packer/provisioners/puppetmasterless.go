@@ -3,7 +3,7 @@ package provisioners
 
 import "github.com/hashicorp/terraform/helper/schema"
 
-func PowerShellResource() *schema.Resource {
+func PuppetMasterlessResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"execute_order": &schema.Schema{
@@ -46,20 +46,13 @@ Optional: true,
 
 		},
 
-"environment_vars": &schema.Schema{
+"clean_staging_directory": &schema.Schema{
 Optional: true,
-			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Type: schema.TypeBool,
 
 		},
 
-"remote_path": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"remote_env_var_path": &schema.Schema{
+"guest_os_type": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
@@ -71,40 +64,65 @@ Optional: true,
 
 		},
 
-"elevated_execute_command": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"start_retry_timeout": &schema.Schema{
-Optional: true,
-			Type: schema.TypeInt,
-
-		},
-
-"elevated_env_var_format": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"elevated_user": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"elevated_password": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"valid_exit_codes": &schema.Schema{
+"extra_arguments": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
 			Elem: &schema.Schema{Type: schema.TypeString},
+
+		},
+
+"hiera_config_path": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"ignore_exit_codes": &schema.Schema{
+Optional: true,
+			Type: schema.TypeBool,
+
+		},
+
+"module_paths": &schema.Schema{
+Optional: true,
+			Type: schema.TypeList,
+			Elem: &schema.Schema{Type: schema.TypeString},
+
+		},
+
+"manifest_file": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"manifest_dir": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"prevent_sudo": &schema.Schema{
+Optional: true,
+			Type: schema.TypeBool,
+
+		},
+
+"puppet_bin_dir": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"staging_directory": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"working_directory": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
 
 		},
 

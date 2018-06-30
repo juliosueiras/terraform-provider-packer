@@ -3,7 +3,7 @@ package provisioners
 
 import "github.com/hashicorp/terraform/helper/schema"
 
-func PowerShellResource() *schema.Resource {
+func ConvergeResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"execute_order": &schema.Schema{
@@ -46,22 +46,52 @@ Optional: true,
 
 		},
 
-"environment_vars": &schema.Schema{
+"bootstrap": &schema.Schema{
+Optional: true,
+			Type: schema.TypeBool,
+
+		},
+
+"version": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"bootstrap_command": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"prevent_bootstrap_sudo": &schema.Schema{
+Optional: true,
+			Type: schema.TypeBool,
+
+		},
+
+"module_dirs": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
 			Elem: &schema.Schema{Type: schema.TypeString},
 
 		},
 
-"remote_path": &schema.Schema{
+"module": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"remote_env_var_path": &schema.Schema{
+"working_directory": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
+
+		},
+
+"params": &schema.Schema{
+Optional: true,
+			Type: schema.TypeMap,
 
 		},
 
@@ -71,40 +101,9 @@ Optional: true,
 
 		},
 
-"elevated_execute_command": &schema.Schema{
+"prevent_sudo": &schema.Schema{
 Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"start_retry_timeout": &schema.Schema{
-Optional: true,
-			Type: schema.TypeInt,
-
-		},
-
-"elevated_env_var_format": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"elevated_user": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"elevated_password": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"valid_exit_codes": &schema.Schema{
-Optional: true,
-			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Type: schema.TypeBool,
 
 		},
 

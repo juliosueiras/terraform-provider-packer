@@ -1,15 +1,11 @@
 
-package provisioners
+package builders
 
 import "github.com/hashicorp/terraform/helper/schema"
 
-func PowerShellResource() *schema.Resource {
+func LXDResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
-			"execute_order": &schema.Schema{
-				Type: schema.TypeInt,
-				Required: true,
-			},
 "packer_build_name": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
@@ -46,65 +42,51 @@ Optional: true,
 
 		},
 
-"environment_vars": &schema.Schema{
-Optional: true,
-			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
-
-		},
-
-"remote_path": &schema.Schema{
+"output_image": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"remote_env_var_path": &schema.Schema{
+"container_name": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"execute_command": &schema.Schema{
+"command_wrapper": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"elevated_execute_command": &schema.Schema{
+"image": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"start_retry_timeout": &schema.Schema{
-Optional: true,
-			Type: schema.TypeInt,
-
-		},
-
-"elevated_env_var_format": &schema.Schema{
+"profile": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"elevated_user": &schema.Schema{
+"init_sleep": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"elevated_password": &schema.Schema{
+"publish_properties": &schema.Schema{
 Optional: true,
-			Type: schema.TypeString,
+			Type: schema.TypeMap,
 
 		},
 
-"valid_exit_codes": &schema.Schema{
+"launch_config": &schema.Schema{
 Optional: true,
-			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Type: schema.TypeMap,
 
 		},
 

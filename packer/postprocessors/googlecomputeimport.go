@@ -1,15 +1,11 @@
 
-package provisioners
+package postprocessors
 
 import "github.com/hashicorp/terraform/helper/schema"
 
-func PowerShellResource() *schema.Resource {
+func GoogleComputeImportResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
-			"execute_order": &schema.Schema{
-				Type: schema.TypeInt,
-				Required: true,
-			},
 "packer_build_name": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
@@ -46,65 +42,57 @@ Optional: true,
 
 		},
 
-"environment_vars": &schema.Schema{
-Optional: true,
-			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
-
-		},
-
-"remote_path": &schema.Schema{
+"bucket": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"remote_env_var_path": &schema.Schema{
+"gcs_object_name": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"execute_command": &schema.Schema{
+"image_description": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"elevated_execute_command": &schema.Schema{
+"image_family": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"start_retry_timeout": &schema.Schema{
+"image_labels": &schema.Schema{
 Optional: true,
-			Type: schema.TypeInt,
+			Type: schema.TypeMap,
 
 		},
 
-"elevated_env_var_format": &schema.Schema{
+"image_name": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"elevated_user": &schema.Schema{
+"project_id": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"elevated_password": &schema.Schema{
+"account_file": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"valid_exit_codes": &schema.Schema{
+"keep_input_artifact": &schema.Schema{
 Optional: true,
-			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Type: schema.TypeBool,
 
 		},
 

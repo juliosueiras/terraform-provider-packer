@@ -19,17 +19,17 @@ func dataSourceJSON() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"builders": &schema.Schema{
 				Type:     schema.TypeList,
-				Required: true,
+				Optional: true,
 				Elem:     builderResource(),
 			},
 			"provisioners": &schema.Schema{
 				Type:     schema.TypeList,
-				Required: true,
+				Optional: true,
 				Elem:     provisionerResource(),
 			},
 			"post_processors": &schema.Schema{
 				Type:     schema.TypeList,
-				Required: true,
+				Optional: true,
 				Elem:     postProcessorResource(),
 			},
 			"variables": &schema.Schema{
@@ -47,11 +47,191 @@ func dataSourceJSON() *schema.Resource {
 func builderResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
+			"alicloud_ecs": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.AlicloudECSResource(),
+			},
+			"amazon_chroot": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.AmazonChrootResource(),
+			},
+			"amazon_ebs": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.AmazonEBSResource(),
+			},
+			"amazon_ebssurrogate": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.AmazonEBSSurrogateResource(),
+			},
+			"amazon_ebsvolume": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.AmazonEBSVolumeResource(),
+			},
+			"amazon_instance": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.AmazonInstanceResource(),
+			},
+			"azurearm": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.AzureARMResource(),
+			},
+			"cloudstack": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.CloudstackResource(),
+			},
+			"digitalocean": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.DigitalOceanResource(),
+			},
+			"docker": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.DockerResource(),
+			},
+			"file": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.FileResource(),
+			},
+			"googlecompute": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.GoogleComputeResource(),
+			},
+			"hyperv_iso": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.HyperVISOResource(),
+			},
+			"hyperv_vmcx": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.HyperVVMCXResource(),
+			},
+			"lxc": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.LXCResource(),
+			},
+			"lxd": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.LXDResource(),
+			},
+			"ncloud": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.NCloudResource(),
+			},
+			"null": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.NullResource(),
+			},
+			"oneandone": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.OneandoneResource(),
+			},
+			"oracle_classic": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.OracleClassicResource(),
+			},
+			"oracle_oci": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.OracleOciResource(),
+			},
+			"parallels_iso": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.ParallelsISOResource(),
+			},
+			"parallels_pvm": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.ParallelsPVMResource(),
+			},
+			"profitbricks": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.ProfitbricksResource(),
+			},
+			"qemu": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.QEMUResource(),
+			},
+			"scaleway": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.ScalewayResource(),
+			},
+			"triton": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.TritonResource(),
+			},
+			"virtualbox_iso": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.VirtualboxISOResource(),
+			},
+			"virtualbox_ovf": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.VirtualboxOVFResource(),
+			},
 			"vmware_iso": &schema.Schema{
 				Type:     schema.TypeList,
 				MaxItems: 1,
 				Optional: true,
-				Elem:     builders.VMwareISOBuilderResource(),
+				Elem:     builders.VMWareISOResource(),
+			},
+			"vmware_vmx": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     builders.VMWareVMXResource(),
 			},
 		},
 	}
@@ -60,25 +240,75 @@ func builderResource() *schema.Resource {
 func provisionerResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
-			"windows_restart": &schema.Schema{
+			"ansible": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     provisioners.WindowsRestartResource(),
+				Elem:     provisioners.AnsibleResource(),
+			},
+			"ansible_local": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     provisioners.AnsibleLocalResource(),
+			},
+			"chef_client": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     provisioners.ChefClientResource(),
+			},
+			"chef_solo": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     provisioners.ChefSoloResource(),
+			},
+			"converge": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     provisioners.ConvergeResource(),
 			},
 			"file": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
 				Elem:     provisioners.FileResource(),
 			},
-			"windows_shell": &schema.Schema{
-				Type:     schema.TypeList,
-				Optional: true,
-				Elem:     provisioners.WindowsShellResource(),
-			},
 			"powershell": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
 				Elem:     provisioners.PowerShellResource(),
+			},
+			"puppet_masterless": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     provisioners.PuppetMasterlessResource(),
+			},
+			"puppet_server": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     provisioners.PuppetServerResource(),
+			},
+			"salt_masterless": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     provisioners.SaltMasterlessResource(),
+			},
+			"shell": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     provisioners.ShellResource(),
+			},
+			"shell_local": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     provisioners.ShellLocalResource(),
+			},
+			"windows_restart": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     provisioners.WindowsRestartResource(),
+			},
+			"windows_shell": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     provisioners.WindowsShellResource(),
 			},
 		},
 	}
@@ -87,11 +317,113 @@ func provisionerResource() *schema.Resource {
 func postProcessorResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
+			"alicloud_import": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.AlicloudImportResource(),
+			},
+			"amazon_import": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.AmazonImportResource(),
+			},
+			"artifice": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.ArtificeResource(),
+			},
+			"atlas": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.AtlasResource(),
+			},
+			"checksum": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.ChecksumResource(),
+			},
+			"compress": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.CompressResource(),
+			},
+			"docker_import": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.DockerImportResource(),
+			},
+			"docker_push": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.DockerPushResource(),
+			},
+			"docker_save": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.DockerSaveResource(),
+			},
+			"docker_tag": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.DockerTagResource(),
+			},
+			"googlecompute_export": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.GoogleComputeExportResource(),
+			},
+			"googlecompute_import": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.GoogleComputeImportResource(),
+			},
+			"manifest": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.ManifestResource(),
+			},
+			"shell_local": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.ShellLocalResource(),
+			},
+			"vagrant": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.VagrantResource(),
+			},
+			"vagrant_cloud": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.VagrantCloudResource(),
+			},
 			"vsphere": &schema.Schema{
 				Type:     schema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Elem:     postprocessors.VSphereResource(),
+			},
+			"vsphere_template": &schema.Schema{
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
+				Elem:     postprocessors.VSphereTemplateResource(),
 			},
 		},
 	}
@@ -109,6 +441,14 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 		}
 		for i, e := range v.(map[string]interface{}) {
 			t := make(map[string]interface{})
+
+			//if _, errChange := d.GetOkExists("builders." + strconv.FormatInt(int64(x), 10) + "." + i); errChange && (len(e.([]interface{})) == 0) {
+			if len(e.([]interface{})) == 0 {
+				//	t["type"] = strings.Replace(i, "_", "-", -1)
+				//	builders = append(builders, t)
+				continue
+			}
+
 			temp := e.([]interface{})[0].(map[string]interface{})
 
 			for k, v := range temp {
@@ -152,15 +492,20 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 		for _, e := range v.(map[string]interface{}) {
 			if len(e.([]interface{})) > 1 {
 				totalOrder += len(e.([]interface{}))
-			} else {
+			} else if len(e.([]interface{})) == 1 {
 				totalOrder++
 			}
 		}
 
-		provisioners = make([]map[string]interface{}, totalOrder-1)
+		provisioners = make([]map[string]interface{}, totalOrder)
 
 		for i, e := range v.(map[string]interface{}) {
 			log.Println(e.([]interface{}))
+			if len(e.([]interface{})) == 0 {
+				//	t["type"] = strings.Replace(i, "_", "-", -1)
+				//	builders = append(builders, t)
+				continue
+			}
 
 			for m, l := range e.([]interface{}) {
 				t := make(map[string]interface{})
@@ -192,6 +537,16 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 		}
 		for i, e := range v.(map[string]interface{}) {
 			t := make(map[string]interface{})
+
+			//if _, errChange := d.GetOkExists("post_processors." + strconv.FormatInt(int64(x), 10) + "." + i); errChange && len(e.([]interface{})) == 0 {
+			//	t["type"] = strings.Replace(i, "_", "-", -1)
+			//	postprocessors = append(postprocessors, t)
+			//	continue
+			//}
+			if len(e.([]interface{})) == 0 {
+				continue
+			}
+
 			temp := e.([]interface{})[0].(map[string]interface{})
 
 			for k, v := range temp {
@@ -224,10 +579,6 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 
 			postprocessors = append(postprocessors, t)
 		}
-	}
-
-	if provisioners[len(provisioners)-1] == nil {
-		provisioners = provisioners[:len(provisioners)-1]
 	}
 
 	res := map[string]interface{}{

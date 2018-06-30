@@ -1,15 +1,11 @@
 
-package provisioners
+package builders
 
 import "github.com/hashicorp/terraform/helper/schema"
 
-func PowerShellResource() *schema.Resource {
+func LXCResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
-			"execute_order": &schema.Schema{
-				Type: schema.TypeInt,
-				Required: true,
-			},
 "packer_build_name": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
@@ -46,65 +42,80 @@ Optional: true,
 
 		},
 
-"environment_vars": &schema.Schema{
+"config_file": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"output_directory": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"container_name": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"command_wrapper": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"init_timeout": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"create_options": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
 			Elem: &schema.Schema{Type: schema.TypeString},
 
 		},
 
-"remote_path": &schema.Schema{
+"start_options": &schema.Schema{
+Optional: true,
+			Type: schema.TypeList,
+			Elem: &schema.Schema{Type: schema.TypeString},
+
+		},
+
+"attach_options": &schema.Schema{
+Optional: true,
+			Type: schema.TypeList,
+			Elem: &schema.Schema{Type: schema.TypeString},
+
+		},
+
+"template_name": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"remote_env_var_path": &schema.Schema{
+"template_parameters": &schema.Schema{
 Optional: true,
-			Type: schema.TypeString,
+			Type: schema.TypeList,
+			Elem: &schema.Schema{Type: schema.TypeString},
 
 		},
 
-"execute_command": &schema.Schema{
+"template_environment_vars": &schema.Schema{
 Optional: true,
-			Type: schema.TypeString,
+			Type: schema.TypeList,
+			Elem: &schema.Schema{Type: schema.TypeString},
 
 		},
 
-"elevated_execute_command": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"start_retry_timeout": &schema.Schema{
+"target_runlevel": &schema.Schema{
 Optional: true,
 			Type: schema.TypeInt,
-
-		},
-
-"elevated_env_var_format": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"elevated_user": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"elevated_password": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"valid_exit_codes": &schema.Schema{
-Optional: true,
-			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
 
 		},
 

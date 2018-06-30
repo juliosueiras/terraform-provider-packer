@@ -3,7 +3,7 @@ package postprocessors
 
 import "github.com/hashicorp/terraform/helper/schema"
 
-func VSphereResource() *schema.Resource {
+func AmazonImportResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 "packer_build_name": &schema.Schema{
@@ -42,86 +42,117 @@ Optional: true,
 
 		},
 
-"cluster": &schema.Schema{
+"access_key": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"datacenter": &schema.Schema{
+"custom_endpoint_ec2": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"datastore": &schema.Schema{
+"mfa_code": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"disk_mode": &schema.Schema{
+"profile": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"host": &schema.Schema{
+"region": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"insecure": &schema.Schema{
+"secret_key": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"skip_region_validation": &schema.Schema{
 Optional: true,
 			Type: schema.TypeBool,
 
 		},
 
-"options": &schema.Schema{
+"skip_metadata_api_check": &schema.Schema{
+Optional: true,
+			Type: schema.TypeBool,
+
+		},
+
+"token": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"s3_bucket_name": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"s3_key_name": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"skip_clean": &schema.Schema{
+Optional: true,
+			Type: schema.TypeBool,
+
+		},
+
+"tags": &schema.Schema{
+Optional: true,
+			Type: schema.TypeMap,
+
+		},
+
+"ami_name": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"ami_description": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"ami_users": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
 			Elem: &schema.Schema{Type: schema.TypeString},
 
 		},
 
-"overwrite": &schema.Schema{
+"ami_groups": &schema.Schema{
 Optional: true,
-			Type: schema.TypeBool,
+			Type: schema.TypeList,
+			Elem: &schema.Schema{Type: schema.TypeString},
 
 		},
 
-"password": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"resource_pool": &schema.Schema{
+"license_type": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"username": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"vm_folder": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"vm_name": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"vm_network": &schema.Schema{
+"role_name": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 

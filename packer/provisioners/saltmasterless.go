@@ -3,7 +3,7 @@ package provisioners
 
 import "github.com/hashicorp/terraform/helper/schema"
 
-func PowerShellResource() *schema.Resource {
+func SaltMasterlessResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"execute_order": &schema.Schema{
@@ -46,65 +46,99 @@ Optional: true,
 
 		},
 
-"environment_vars": &schema.Schema{
+"skip_bootstrap": &schema.Schema{
 Optional: true,
-			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Type: schema.TypeBool,
 
 		},
 
-"remote_path": &schema.Schema{
+"bootstrap_args": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"remote_env_var_path": &schema.Schema{
+"disable_sudo": &schema.Schema{
+Optional: true,
+			Type: schema.TypeBool,
+
+		},
+
+"custom_state": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"execute_command": &schema.Schema{
+"minion_config": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"elevated_execute_command": &schema.Schema{
+"grains_file": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"start_retry_timeout": &schema.Schema{
-Optional: true,
-			Type: schema.TypeInt,
-
-		},
-
-"elevated_env_var_format": &schema.Schema{
+"local_state_tree": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"elevated_user": &schema.Schema{
+"local_pillar_roots": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"elevated_password": &schema.Schema{
+"remote_state_tree": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"valid_exit_codes": &schema.Schema{
+"remote_pillar_roots": &schema.Schema{
 Optional: true,
-			Type: schema.TypeList,
-			Elem: &schema.Schema{Type: schema.TypeString},
+			Type: schema.TypeString,
+
+		},
+
+"temp_config_dir": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"no_exit_on_failure": &schema.Schema{
+Optional: true,
+			Type: schema.TypeBool,
+
+		},
+
+"log_level": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"salt_call_args": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"salt_bin_dir": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"guest_os_type": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
 
 		},
 

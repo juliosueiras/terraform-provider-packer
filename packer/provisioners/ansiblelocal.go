@@ -3,7 +3,7 @@ package provisioners
 
 import "github.com/hashicorp/terraform/helper/schema"
 
-func PowerShellResource() *schema.Resource {
+func AnsibleLocalResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"execute_order": &schema.Schema{
@@ -46,65 +46,86 @@ Optional: true,
 
 		},
 
-"environment_vars": &schema.Schema{
+"extra_arguments": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
 			Elem: &schema.Schema{Type: schema.TypeString},
 
 		},
 
-"remote_path": &schema.Schema{
+"group_vars": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"remote_env_var_path": &schema.Schema{
+"host_vars": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"execute_command": &schema.Schema{
+"playbook_dir": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"elevated_execute_command": &schema.Schema{
+"playbook_file": &schema.Schema{
 Optional: true,
 			Type: schema.TypeString,
 
 		},
 
-"start_retry_timeout": &schema.Schema{
-Optional: true,
-			Type: schema.TypeInt,
-
-		},
-
-"elevated_env_var_format": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"elevated_user": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"elevated_password": &schema.Schema{
-Optional: true,
-			Type: schema.TypeString,
-
-		},
-
-"valid_exit_codes": &schema.Schema{
+"playbook_files": &schema.Schema{
 Optional: true,
 			Type: schema.TypeList,
 			Elem: &schema.Schema{Type: schema.TypeString},
+
+		},
+
+"playbook_paths": &schema.Schema{
+Optional: true,
+			Type: schema.TypeList,
+			Elem: &schema.Schema{Type: schema.TypeString},
+
+		},
+
+"role_paths": &schema.Schema{
+Optional: true,
+			Type: schema.TypeList,
+			Elem: &schema.Schema{Type: schema.TypeString},
+
+		},
+
+"staging_directory": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"clean_staging_directory": &schema.Schema{
+Optional: true,
+			Type: schema.TypeBool,
+
+		},
+
+"inventory_file": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
+
+		},
+
+"inventory_groups": &schema.Schema{
+Optional: true,
+			Type: schema.TypeList,
+			Elem: &schema.Schema{Type: schema.TypeString},
+
+		},
+
+"galaxy_file": &schema.Schema{
+Optional: true,
+			Type: schema.TypeString,
 
 		},
 
