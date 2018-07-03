@@ -14,7 +14,7 @@ require further fine tune for builders with special blocks
 |Amazon Chroot|Foundation Done, require further cleanup|
 |Amazon EBS|Foundation Done, require further cleanup|
 |Amazon EBS Surrogate|Foundation Done, require further cleanup|
-|Amazon EbS Volume|Foundation Done, require further cleanup|
+|Amazon EBS Volume|Foundation Done, require further cleanup|
 |Amazon Instance|Foundation Done, require further cleanup|
 |AzureARM|Foundation Done, require further cleanup|
 |CloudStack|Foundation Done, require further cleanup|
