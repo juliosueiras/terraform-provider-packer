@@ -6,8 +6,9 @@ func PowerShellResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"execute_order": &schema.Schema{
-				Type:     schema.TypeInt,
-				Required: true,
+				Type:        schema.TypeInt,
+				Required:    true,
+				Description: "The order for this provisioner to run in",
 			},
 			"script": &schema.Schema{
 				Optional:    true,

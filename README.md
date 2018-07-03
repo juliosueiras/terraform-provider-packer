@@ -50,14 +50,14 @@ require further fine tune for builders with special blocks
 |Ansible Local|Finished|
 |Chef Client|Finished|
 |Chef Solo|Finished|
-|Converge|Foundation done, require further cleanup|
-|File|Foundation done, require further cleanup|
+|Converge|Finished|
+|File|Finished|
 |PowerShell|Finished|
-|Puppet Masterless|Foundation done, require further cleanup|
-|Puppet Server|Foundation done, require further cleanup|
-|Salt Masterless|Foundation done, require further cleanup|
-|Shell|Foundation done, require further cleanup|
-|Shell Local|Foundation done, require further cleanup|
+|Puppet Masterless|Finished|
+|Puppet Server|Finished|
+|Salt Masterless|Finished|
+|Shell|Finished|
+|Shell Local|Finished|
 |Windows Restart|Finished|
 |Windows Shell|Finished|
 

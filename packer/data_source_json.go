@@ -16,6 +16,7 @@ import (
 var BlockNames = map[string]bool{
 	"ebs_volume":         true,
 	"image_disk_mapping": true,
+	"module_dir":         true,
 }
 
 var SpecialNames = map[string]bool{
@@ -469,7 +470,7 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 			for f := range t {
 				if BlockNames[f] {
 					tempBlock := t[f]
-					t[f+"s"] = removeUnusedParams(d, tempBlock.([]interface{}), x, i, f[:len(f)])
+					t[f+"s"] = removeUnusedParams(d, tempBlock.([]interface{}), x, i, f, "builders", 0)
 					delete(t, f)
 				} else if SpecialNames[f] && len(t[f].([]interface{})) != 0 {
 					resultSpecial := make([][]string, len(t[f].([]interface{})))
@@ -482,7 +483,7 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 					}
 
 					t[f] = resultSpecial
-				} else if _, errChange := d.GetOkExists("builders." + strconv.FormatInt(int64(x), 10) + "." + i + ".0." + f); !errChange && !BlockNames[f[:len(f)-2]] {
+				} else if _, errChange := d.GetOkExists("builders." + strconv.FormatInt(int64(x), 10) + "." + i + ".0." + f); !errChange && !BlockNames[f[:len(f)-1]] {
 					delete(t, f)
 				}
 			}
@@ -509,7 +510,7 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 		}
 	}
 
-	for _, v := range d.Get("provisioners").([]interface{}) {
+	for x, v := range d.Get("provisioners").([]interface{}) {
 		if v == nil {
 			break
 		}
@@ -541,8 +542,11 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 				}
 
 				for f := range t {
-					log.Println("provisioners.0." + i + "." + strconv.FormatInt(int64(m), 10) + "." + f)
-					if _, errChange := d.GetOkExists("provisioners.0." + i + "." + strconv.FormatInt(int64(m), 10) + "." + f); !errChange {
+					if BlockNames[f] {
+						tempBlock := t[f]
+						t[f+"s"] = removeUnusedParams(d, tempBlock.([]interface{}), x, i, f, "provisioners", m)
+						delete(t, f)
+					} else if _, errChange := d.GetOkExists("provisioners.0." + i + "." + strconv.FormatInt(int64(m), 10) + "." + f); !errChange && !BlockNames[f[:len(f)-1]] {
 						delete(t, f)
 					}
 				}
@@ -635,12 +639,12 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 	return nil
 }
 
-func removeUnusedParams(d *schema.ResourceData, block []interface{}, num int, builder string, blockName string) []interface{} {
+func removeUnusedParams(d *schema.ResourceData, block []interface{}, num int, moduleName string, blockName string, typeName string, l int) []interface{} {
 	for i, m := range block {
 		if m != nil {
 			for k := range m.(map[string]interface{}) {
 
-				if _, change := d.GetOkExists("builders." + strconv.FormatInt(int64(num), 10) + "." + builder + ".0." + blockName + "." + strconv.FormatInt(int64(i), 10) + "." + k); !change {
+				if _, change := d.GetOkExists(typeName + "." + strconv.FormatInt(int64(num), 10) + "." + moduleName + "." + strconv.FormatInt(int64(l), 10) + "." + blockName + "." + strconv.FormatInt(int64(i), 10) + "." + k); !change {
 					delete(m.(map[string]interface{}), k)
 				}
 			}
