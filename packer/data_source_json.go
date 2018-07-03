@@ -17,6 +17,11 @@ var BlockNames = map[string]bool{
 	"image_disk_mapping": true,
 }
 
+var SpecialNames = map[string]bool{
+	"vboxmanage":      true,
+	"vboxmanage_post": true,
+}
+
 func dataSourceJSON() *schema.Resource {
 	return &schema.Resource{
 		Read: dataSourceJSONRead,
@@ -465,6 +470,17 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 					tempBlock := t[f]
 					t[f+"s"] = removeUnusedParams(d, tempBlock.([]interface{}), x, i, f[:len(f)])
 					delete(t, f)
+				} else if SpecialNames[f] && len(t[f].([]interface{})) != 0 {
+					resultSpecial := make([][]string, len(t[f].([]interface{})))
+					for w, b := range t[f].([]interface{}) {
+						resultSpecial[w] = append(resultSpecial[w], b.(map[string]interface{})["command"].(string))
+
+						for _, value := range b.(map[string]interface{})["values"].([]interface{}) {
+							resultSpecial[w] = append(resultSpecial[w], value.(string))
+						}
+					}
+
+					t[f] = resultSpecial
 				} else if _, errChange := d.GetOkExists("builders." + strconv.FormatInt(int64(x), 10) + "." + i + ".0." + f); !errChange && !BlockNames[f[:len(f)-2]] {
 					delete(t, f)
 				}

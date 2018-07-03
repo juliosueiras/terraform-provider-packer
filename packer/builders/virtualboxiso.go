@@ -343,24 +343,39 @@ func VirtualboxISOResource() *schema.Resource {
 			"vboxmanage": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeList,
-				Elem: &schema.Schema{
-					Type: schema.TypeString,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"command": &schema.Schema{
+							Required:    true,
+							Type:        schema.TypeString,
+							Description: "Command for vboxmanage",
+						},
+						"values": &schema.Schema{
+							Required:    true,
+							Type:        schema.TypeList,
+							Description: "Values for vboxmanage",
+							Elem:        &schema.Schema{Type: schema.TypeString},
+						},
+					},
 				},
-				//				Elem: &schema.Schema{
-				//					Type: schema.TypeList,
-				//					Elem: &schema.Schema{
-				//						Type: schema.TypeString,
-				//					},
-				//				},
 			},
 
 			"vboxmanage_post": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeList,
-				Elem: &schema.Schema{
-					Type: schema.TypeList,
-					Elem: &schema.Schema{
-						Type: schema.TypeString,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"command": &schema.Schema{
+							Required:    true,
+							Type:        schema.TypeString,
+							Description: "Command for vboxmanage",
+						},
+						"values": &schema.Schema{
+							Required:    true,
+							Type:        schema.TypeList,
+							Description: "Values for vboxmanage",
+							Elem:        &schema.Schema{Type: schema.TypeString},
+						},
 					},
 				},
 			},
