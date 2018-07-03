@@ -1,0 +1,18 @@
+# .goreleaser.yml
+# Build customization
+builds:
+  - binary: terraform-provider-packer
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd64
+
+release:
+  github:
+    owner: juliosueiras
+    name: terraform-provider-packer
+
+  prerelease: true
+
