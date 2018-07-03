@@ -14,3 +14,5 @@ release:
     owner: juliosueiras
     name: terraform-provider-packer
 
+  prerelease: true
+
