@@ -12,6 +12,11 @@ import (
 	"strings"
 )
 
+var BlockNames = map[string]bool{
+	"ebs_volume":         true,
+	"image_disk_mapping": true,
+}
+
 func dataSourceJSON() *schema.Resource {
 	return &schema.Resource{
 		Read: dataSourceJSONRead,
@@ -456,7 +461,11 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 			}
 
 			for f := range t {
-				if _, errChange := d.GetOkExists("builders." + strconv.FormatInt(int64(x), 10) + "." + i + ".0." + f); !errChange {
+				if BlockNames[f] {
+					tempBlock := t[f]
+					t[f+"s"] = removeUnusedParams(d, tempBlock.([]interface{}), x, i, f[:len(f)])
+					delete(t, f)
+				} else if _, errChange := d.GetOkExists("builders." + strconv.FormatInt(int64(x), 10) + "." + i + ".0." + f); !errChange && !BlockNames[f[:len(f)-2]] {
 					delete(t, f)
 				}
 			}
@@ -601,4 +610,21 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 	d.SetId(strconv.Itoa(hashcode.String(string(result))))
 
 	return nil
+}
+
+func removeUnusedParams(d *schema.ResourceData, block []interface{}, num int, builder string, blockName string) []interface{} {
+	for i, m := range block {
+		if m != nil {
+			for k := range m.(map[string]interface{}) {
+
+				if _, change := d.GetOkExists("builders." + strconv.FormatInt(int64(num), 10) + "." + builder + ".0." + blockName + "." + strconv.FormatInt(int64(i), 10) + "." + k); !change {
+					delete(m.(map[string]interface{}), k)
+				}
+			}
+		} else {
+			block = append(block[:i], block[i+1:]...)
+		}
+	}
+
+	return block
 }

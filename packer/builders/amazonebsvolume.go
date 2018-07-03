@@ -361,7 +361,7 @@ func AmazonEBSVolumeResource() *schema.Resource {
 				Type:     schema.TypeString,
 			},
 
-			"ebs_volumes": &schema.Schema{
+			"ebs_volume": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeList,
 				Elem: &schema.Resource{
