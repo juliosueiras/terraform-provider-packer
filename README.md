@@ -40,7 +40,7 @@ require further fine tune for builders with special blocks
 |Triton|Foundation Done, require further cleanup|
 |Virtualbox ISO|Foundation Done, require further cleanup|
 |Virtualbox OVF|Foundation Done, require further cleanup|
-|VMware ISO|Foundation Done, require further cleanup|
+|VMware ISO|Finished|
 |VMware VMX|Foundation Done, require further cleanup|
 
 ## Provisioners
@@ -52,14 +52,14 @@ require further fine tune for builders with special blocks
 |Chef Solo|Foundation done, require further cleanup|
 |Converge|Foundation done, require further cleanup|
 |File|Foundation done, require further cleanup|
-|PowerShell|Foundation done, require further cleanup|
+|PowerShell|Finished|
 |Puppet Masterless|Foundation done, require further cleanup|
 |Puppet Server|Foundation done, require further cleanup|
 |Salt Masterless|Foundation done, require further cleanup|
 |Shell|Foundation done, require further cleanup|
 |Shell Local|Foundation done, require further cleanup|
-|Windows Restart|Foundation done, require further cleanup|
-|Windows Shell|Foundation done, require further cleanup|
+|Windows Restart|Finished|
+|Windows Shell|Finished|
 
 ## PostProcessors
 |Name|Status|
@@ -80,5 +80,5 @@ require further fine tune for builders with special blocks
 |Shell Local|Foundation done, require further cleanup|
 |Vagrant|Foundation done, require further cleanup|
 |Vagrant Cloud|Foundation done, require further cleanup|
-|vSphere|Foundation done, require further cleanup|
-|vSphere Template|Foundation done, require further cleanup|
+|vSphere|Finished|
+|vSphere Template|Finished|
