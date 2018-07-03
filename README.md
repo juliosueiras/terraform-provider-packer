@@ -46,10 +46,10 @@ require further fine tune for builders with special blocks
 ## Provisioners
 |Name|Status|
 |--|--|
-|Ansible|Foundation done, require further cleanup|
-|Ansible Local|Foundation done, require further cleanup|
-|Chef Client|Foundation done, require further cleanup|
-|Chef Solo|Foundation done, require further cleanup|
+|Ansible|Finished|
+|Ansible Local|Finished|
+|Chef Client|Finished|
+|Chef Solo|Finished|
 |Converge|Foundation done, require further cleanup|
 |File|Foundation done, require further cleanup|
 |PowerShell|Finished|

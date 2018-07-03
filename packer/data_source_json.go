@@ -2,6 +2,7 @@ package packer
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/hashicorp/terraform/helper/hashcode"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/juliosueiras/terraform-provider-packer/packer/builders"
@@ -549,6 +550,12 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 				t["type"] = strings.Replace(i, "_", "-", -1)
 
 				executeOrder := t["execute_order"].(int)
+
+				if (executeOrder-1) < 0 || executeOrder > len(provisioners) {
+
+					return errors.New(strconv.FormatInt(int64(t["execute_order"].(int)), 10) + " execute order is incorrect")
+				}
+
 				delete(t, "execute_order")
 				provisioners[executeOrder-1] = t
 			}
