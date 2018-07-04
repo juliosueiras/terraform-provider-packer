@@ -5,6 +5,12 @@ import "github.com/hashicorp/terraform/helper/schema"
 func VirtualboxISOResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
+			"name": &schema.Schema{
+				Type:        schema.TypeString,
+				Optional:    true,
+				Description: "for named builds",
+			},
+
 			"packer_build_name": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeString,
@@ -345,6 +351,7 @@ func VirtualboxISOResource() *schema.Resource {
 				Type:     schema.TypeList,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
+
 						"command": &schema.Schema{
 							Required:    true,
 							Type:        schema.TypeString,
@@ -365,6 +372,7 @@ func VirtualboxISOResource() *schema.Resource {
 				Type:     schema.TypeList,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
+
 						"command": &schema.Schema{
 							Required:    true,
 							Type:        schema.TypeString,

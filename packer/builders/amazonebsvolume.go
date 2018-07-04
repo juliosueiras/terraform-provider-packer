@@ -5,6 +5,12 @@ import "github.com/hashicorp/terraform/helper/schema"
 func AmazonEBSVolumeResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
+			"name": &schema.Schema{
+				Type:        schema.TypeString,
+				Optional:    true,
+				Description: "for named builds",
+			},
+
 			"packer_build_name": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeString,
@@ -366,6 +372,7 @@ func AmazonEBSVolumeResource() *schema.Resource {
 				Type:     schema.TypeList,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
+
 						"device_name": &schema.Schema{
 							Optional: true,
 							Type:     schema.TypeString,

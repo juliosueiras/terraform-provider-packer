@@ -9,6 +9,12 @@ import (
 func VMWareISOResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
+			"name": &schema.Schema{
+				Type:        schema.TypeString,
+				Optional:    true,
+				Description: "for named builds",
+			},
+
 			"http_directory": &schema.Schema{
 				Optional:    true,
 				Type:        schema.TypeString,
@@ -297,6 +303,7 @@ func VMWareISOResource() *schema.Resource {
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
+
 						"remote_type": &schema.Schema{
 							Optional:    true,
 							Type:        schema.TypeString,

@@ -9,6 +9,11 @@ import (
 func AlicloudECSResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
+			"name": &schema.Schema{
+				Type:        schema.TypeString,
+				Optional:    true,
+				Description: "for named builds",
+			},
 
 			"access_key": &schema.Schema{
 				Required:    true,

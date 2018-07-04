@@ -151,17 +151,6 @@ func AlicloudImportResource() *schema.Resource {
 				Type:     schema.TypeBool,
 			},
 
-			"image_disk_mappings": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeList,
-				Elem: &schema.Schema{
-					Type: schema.TypeList,
-					Elem: &schema.Schema{
-						Type: schema.TypeMap,
-					},
-				},
-			},
-
 			"associate_public_ip_address": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeBool,
