@@ -42,49 +42,22 @@ func CompressResource() *schema.Resource {
 				},
 			},
 
-			"packer_build_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_builder_type": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_debug": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_force": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_on_error": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_user_variables": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeMap,
-			},
-
 			"output": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "The path to save the compressed archive. The archive format is inferred from the filename. E.g. .tar.gz will be a gzipped tarball. .zip will be a zip file. If the extension can't be detected packer defaults to .tar.gz behavior but will not change the filename.  You can use {{.BuildName}} and {{.BuilderType}} in your output path. If you are executing multiple builders in parallel you should make sure output is unique for each one. For example packer_{{.BuildName}}.zip",
 			},
 
 			"format": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "Disable archive format autodetection and use provided string.",
 			},
 
 			"compression_level": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
+				Optional:    true,
+				Type:        schema.TypeInt,
+				Description: "Specify the compression level, for algorithms that support it, from 1 through 9 inclusive. Typically higher compression levels take longer but produce smaller files. Defaults to 6",
 			},
 		},
 	}

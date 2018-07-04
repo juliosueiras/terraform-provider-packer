@@ -47,39 +47,16 @@ func DockerImportResource() *schema.Resource {
 				Type:     schema.TypeString,
 			},
 
-			"packer_builder_type": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_debug": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_force": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_on_error": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_user_variables": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeMap,
-			},
-
 			"repository": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Required:    true,
+				Type:        schema.TypeString,
+				Description: "The repository of the imported image.",
 			},
 
 			"tag": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "The tag for the imported image. By default this is not set.",
 			},
 		},
 	}

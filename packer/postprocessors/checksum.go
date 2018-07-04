@@ -41,46 +41,17 @@ func ChecksumResource() *schema.Resource {
 					},
 				},
 			},
-
-			"packer_build_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_builder_type": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_debug": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_force": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_on_error": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_user_variables": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeMap,
-			},
-
 			"checksum_types": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeList,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional:    true,
+				Type:        schema.TypeList,
+				Elem:        &schema.Schema{Type: schema.TypeString},
+				Description: "An array of strings of checksum types to compute. Allowed values are md5, sha1, sha224, sha256, sha384, sha512.",
 			},
 
 			"output": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "Specify filename to store checksums. This defaults to packer_{{.BuildName}}_{{.BuilderType}}_{{.ChecksumType}}.checksum. For example, if you had a builder named database, you might see the file written as packer_database_docker_md5.checksum. The following variables are available to use in the output template:",
 			},
 		},
 	}

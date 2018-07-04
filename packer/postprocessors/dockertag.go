@@ -41,45 +41,21 @@ func DockerTagResource() *schema.Resource {
 					},
 				},
 			},
-
-			"packer_build_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_builder_type": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_debug": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_force": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_on_error": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_user_variables": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeMap,
-			},
-
 			"repository": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "The repository of the image",
 			},
 
 			"tag": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "The tag for the image. By default this is not set",
+			},
+			"force": &schema.Schema{
+				Optional:    true,
+				Type:        schema.TypeBool,
+				Description: "If true, this post-processor forcibly tag the image even if tag name is collided. Default to false. But it will be ignored if Docker >= 1.12.0 was detected, since the force option was removed after 1.12.0. ",
 			},
 		},
 	}

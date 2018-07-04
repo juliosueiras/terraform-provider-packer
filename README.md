@@ -64,21 +64,20 @@ require further fine tune for builders with special blocks
 ## PostProcessors
 |Name|Status|
 |--|--|
-|Alicloud Import|Foundation done, require further cleanup|
-|Amazon Import|Foundation done, require further cleanup|
-|Artifice|Foundation done, require further cleanup|
-|Atlas|Foundation done, require further cleanup|
-|Checksum|Foundation done, require further cleanup|
-|Compress|Foundation done, require further cleanup|
-|Docker Import|Foundation done, require further cleanup|
-|Docker Push|Foundation done, require further cleanup|
-|Docker Save|Foundation done, require further cleanup|
-|Docker Tag|Foundation done, require further cleanup|
-|GoogleCompute Export|Foundation done, require further cleanup|
-|GoogleCompute Import|Foundation done, require further cleanup|
-|Manifest|Foundation done, require further cleanup|
-|Shell Local|Foundation done, require further cleanup|
-|Vagrant|Foundation done, require further cleanup|
-|Vagrant Cloud|Foundation done, require further cleanup|
+|Alicloud Import|Finished|
+|Amazon Import|Finished|
+|Artifice|Finished|
+|Atlas|Finished|
+|Checksum|Finished|
+|Compress|Finished|
+|Docker Import|Finished|
+|Docker Push|Finished|
+|Docker Save|Finished|
+|Docker Tag|Finished|
+|GoogleCompute Export|Finished|
+|Manifest|Finished|
+|Shell Local|Finished|
+|Vagrant|Finished|
+|Vagrant Cloud|Finished|
 |vSphere|Finished|
 |vSphere Template|Finished|

@@ -353,11 +353,6 @@ func postProcessorResource() *schema.Resource {
 				Optional: true,
 				Elem:     postprocessors.GoogleComputeExportResource(),
 			},
-			"googlecompute_import": &schema.Schema{
-				Type:     schema.TypeList,
-				Optional: true,
-				Elem:     postprocessors.GoogleComputeImportResource(),
-			},
 			"manifest": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
@@ -412,6 +407,12 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 
 			for m, l := range e.([]interface{}) {
 				t := make(map[string]interface{})
+
+				if l == nil {
+					t["type"] = strings.Replace(i, "_", "-", -1)
+					builders = append(builders, t)
+					continue
+				}
 
 				for k, v := range l.(map[string]interface{}) {
 					t[k] = v

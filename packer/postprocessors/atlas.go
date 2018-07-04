@@ -41,55 +41,32 @@ func AtlasResource() *schema.Resource {
 					},
 				},
 			},
-
-			"packer_build_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+			"artifact": &schema.Schema{
+				Required:    true,
+				Type:        schema.TypeString,
+				Description: "The shorthand tag for your artifact that maps to Atlas, i.e hashicorp/foobar for atlas.hashicorp.com/hashicorp/foobar. You must have access to the organization—hashicorp in this example—in order to add an artifact to the organization in Atlas.",
 			},
-
-			"packer_builder_type": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_debug": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_force": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_on_error": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_user_variables": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeMap,
+			"token": &schema.Schema{
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "Your access token for the Atlas API.",
 			},
 
 			"artifact_type": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"artifact_type_override": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
+				Required:    true,
+				Type:        schema.TypeString,
+				Description: "For uploading artifacts to Atlas. artifact_type can be set to any unique identifier, however, the following are recommended for consistency - amazon.image, azure.image, cloudstack.image, digitalocean.image, docker.image, googlecompute.image, hyperv.image, oneandone.image, openstack.image, parallels.image, profitbricks.image, qemu.image, triton.image, virtualbox.image, vmware.image, and custom.image.",
 			},
 
 			"atlas_url": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "Override the base URL for Atlas. This is useful if you're using Atlas Enterprise in your own network. Defaults to https://atlas.hashicorp.com/api/v1.",
 			},
-
-			"test": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
+			"metadata": &schema.Schema{
+				Optional:    true,
+				Type:        schema.TypeMap,
+				Description: "Send metadata about the artifact.",
 			},
 		},
 	}
