@@ -1,0 +1,490 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Teraform Provider for Packer Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;terraform&quot;,&quot;json&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+        <div class="lang-selector">
+              <a href="#" data-language-name="terraform">terraform</a>
+              <a href="#" data-language-name="json">json</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#a-quick-start" class="toc-h1 toc-link" data-title="a-quick-start">A Quick Start</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#a-complete-example" class="toc-h2 toc-link" data-title="a-complete-example">A Complete Example:</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#builders" class="toc-h1 toc-link" data-title="builders">Builders</a>
+          </li>
+          <li>
+            <a href="#provisioners" class="toc-h1 toc-link" data-title="provisioners">Provisioners</a>
+          </li>
+          <li>
+            <a href="#post-processors" class="toc-h1 toc-link" data-title="post-processors">Post-Processors</a>
+          </li>
+          <li>
+            <a href="#examples" class="toc-h1 toc-link" data-title="examples">Examples</a>
+          </li>
+      </div>
+        <ul class="toc-footer">
+            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='a-quick-start'>A Quick Start</h1>
+<p>This provider provide a data source call &quot;packer_json&quot; and its purpose is not to run packer but rather generate a packer json to be run with <code>packer build</code></p>
+<h2 id='a-complete-example'>A Complete Example:</h2><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"builders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"boot_command"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"&lt;enter&gt;&lt;wait&gt;&lt;f6&gt;&lt;esc&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"/install/vmlinuz&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" auto&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" console-setup/ask_detect=false&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" console-setup/layoutcode=us&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" console-setup/modelcode=pc105&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" debconf/frontend=noninteractive&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" debian-installer=en_US&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" fb=false&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" initrd=/install/initrd.gz&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" kbd-chooser/method=us&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" keyboard-configuration/layout=USA&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" keyboard-configuration/variant=USA&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" locale=en_US&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" netcfg/get_domain=vm&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" netcfg/get_hostname=vagrant&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" grub-installer/bootdev=/dev/sda&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" noapic&lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">" -- &lt;wait&gt;"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"&lt;enter&gt;&lt;wait&gt;"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"boot_wait"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10s"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"disk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">81920</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"guest_additions_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VBoxGuestAdditions_{{.Version}}.iso"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"guest_os_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ubuntu_64"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"headless"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"http_directory"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iso_checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0a03608988cfd2e50567990dc8be96fb3c501e198e2e6efcb846d89efc7b89f2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iso_checksum_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sha256"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iso_urls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"iso/ubuntu-16.04.4-server-amd64.iso"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"http://releases.ubuntu.com/16.04/ubuntu-16.04.4-server-amd64.iso"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"shutdown_command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo 'vagrant'|sudo -S shutdown -P now"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ssh_password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vagrant"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ssh_port"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ssh_username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vagrant"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ssh_wait_timeout"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10000s"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"virtualbox-iso"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vboxmanage"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"modifyvm"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"{{.Name}}"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"--memory"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"1024"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"modifyvm"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"{{.Name}}"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"--cpus"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"1"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"virtualbox_version_file"</span><span class="p">:</span><span class="w"> </span><span class="s2">".vbox_version"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vm_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"packer-ubuntu-16.04-amd64"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"post-processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"output"</span><span class="p">:</span><span class="w"> </span><span class="s2">"builds/{{.Provider}}-ubuntu1604.box"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vagrant"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"box_tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"geerlingguy/ubuntu1604"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vagrant-cloud"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{user `version`}}"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"provisioners"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"execute_command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scripts/ansible.sh"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shell"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"execute_command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scripts/setup.sh"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shell"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"galaxy_file"</span><span class="p">:</span><span class="w"> </span><span class="s2">"requirements.yml"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"playbook_file"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ansible/main.yml"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ansible-local"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"execute_command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scripts/cleanup.sh"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shell"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"variables"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><pre class="highlight terraform tab-terraform"><code><span class="nx">locals</span> <span class="p">{</span>
+    <span class="nx">boot_commands</span> <span class="p">=</span> <span class="p">[</span>
+        <span class="s2">"&lt;enter&gt;&lt;wait&gt;&lt;f6&gt;&lt;esc&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;"</span><span class="p">,</span>
+        <span class="s2">"&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;"</span><span class="p">,</span>
+        <span class="s2">"&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;"</span><span class="p">,</span>
+        <span class="s2">"&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;&lt;bs&gt;"</span><span class="p">,</span>
+        <span class="s2">"/install/vmlinuz&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" auto&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" console-setup/ask_detect=false&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" console-setup/layoutcode=us&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" console-setup/modelcode=pc105&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" debconf/frontend=noninteractive&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" debian-installer=en_US&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" fb=false&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" initrd=/install/initrd.gz&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" kbd-chooser/method=us&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" keyboard-configuration/layout=USA&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" keyboard-configuration/variant=USA&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" locale=en_US&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" netcfg/get_domain=vm&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" netcfg/get_hostname=vagrant&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" grub-installer/bootdev=/dev/sda&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" noapic&lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">" preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg"</span><span class="p">,</span>
+        <span class="s2">" -- &lt;wait&gt;"</span><span class="p">,</span>
+        <span class="s2">"&lt;enter&gt;&lt;wait&gt;"</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="k">data</span> <span class="s2">"packer_json"</span> <span class="s2">"default"</span> <span class="p">{</span>
+    <span class="nx">builders</span> <span class="p">{</span>
+        <span class="nx">virtualbox_iso</span> <span class="p">{</span>
+            <span class="nx">boot_command</span> <span class="p">=</span> <span class="p">[</span><span class="s2">"</span><span class="k">${</span><span class="kd">local</span><span class="p">.</span><span class="nx">boot_commands</span><span class="k">}</span><span class="s2">"</span><span class="p">]</span>
+            <span class="nx">boot_wait</span> <span class="p">=</span> <span class="s2">"10s"</span>
+            <span class="nx">disk_size</span> <span class="p">=</span> <span class="mi">81920</span>
+            <span class="nx">guest_os_type</span> <span class="p">=</span> <span class="s2">"Ubuntu_64"</span>
+            <span class="nx">headless</span> <span class="p">=</span> <span class="kc">true</span>
+            <span class="nx">http_directory</span> <span class="p">=</span> <span class="s2">"http"</span>
+
+            <span class="nx">iso</span> <span class="p">{</span>
+                <span class="nx">iso_urls</span> <span class="p">=</span> <span class="p">[</span>
+                    <span class="s2">"iso/ubuntu-16.04.4-server-amd64.iso"</span><span class="p">,</span>
+                    <span class="s2">"http://releases.ubuntu.com/16.04/ubuntu-16.04.4-server-amd64.iso"</span>
+                <span class="p">]</span>
+
+                <span class="nx">iso_checksum_type</span> <span class="p">=</span> <span class="s2">"sha256"</span>
+
+                <span class="nx">iso_checksum</span> <span class="p">=</span> <span class="s2">"0a03608988cfd2e50567990dc8be96fb3c501e198e2e6efcb846d89efc7b89f2"</span>
+            <span class="p">}</span>
+
+            <span class="nx">ssh</span> <span class="p">{</span>
+                <span class="nx">ssh_username</span> <span class="p">=</span> <span class="s2">"vagrant"</span>
+                <span class="nx">ssh_password</span> <span class="p">=</span> <span class="s2">"vagrant"</span>
+                <span class="nx">ssh_port</span> <span class="p">=</span> <span class="mi">22</span>
+                <span class="nx">ssh_wait_timeout</span> <span class="p">=</span> <span class="s2">"10000s"</span>
+            <span class="p">}</span>
+
+            <span class="nx">shutdown_command</span> <span class="p">=</span> <span class="s2">"echo 'vagrant'|sudo -S shutdown -P now"</span>
+
+            <span class="nx">guest_additions_path</span> <span class="p">=</span> <span class="s2">"VBoxGuestAdditions_{{.Version}}.iso"</span>
+            <span class="nx">virtualbox_version_file</span> <span class="p">=</span> <span class="s2">".vbox_version"</span>
+            <span class="nx">vm_name</span> <span class="p">=</span> <span class="s2">"packer-ubuntu-16.04-amd64"</span>
+
+            <span class="nx">vboxmanage</span> <span class="p">{</span>
+                <span class="nx">values</span> <span class="p">=</span> <span class="p">[</span> <span class="s2">"modifyvm"</span><span class="p">,</span> <span class="s2">"{{.Name}}"</span><span class="p">,</span> <span class="s2">"--memory"</span><span class="p">,</span> <span class="s2">"1024"</span><span class="p">]</span>
+            <span class="p">}</span>
+
+            <span class="nx">vboxmanage</span> <span class="p">{</span>
+                <span class="nx">values</span> <span class="p">=</span> <span class="p">[</span> <span class="s2">"modifyvm"</span><span class="p">,</span> <span class="s2">"{{.Name}}"</span><span class="p">,</span> <span class="s2">"--cpus"</span><span class="p">,</span> <span class="s2">"1"</span> <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">provisioners</span> <span class="p">{</span>
+        <span class="nx">shell</span> <span class="p">{</span>
+            <span class="nx">execute_order</span> <span class="p">=</span> <span class="mi">1</span>
+            <span class="nx">execute_command</span> <span class="p">=</span> <span class="s2">"echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"</span>
+            <span class="nx">script</span> <span class="p">=</span> <span class="s2">"scripts/ansible.sh"</span>
+        <span class="p">}</span>
+
+        <span class="nx">shell</span> <span class="p">{</span>
+            <span class="nx">execute_order</span> <span class="p">=</span> <span class="mi">2</span>
+            <span class="nx">execute_command</span> <span class="p">=</span> <span class="s2">"echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"</span>
+            <span class="nx">script</span> <span class="p">=</span> <span class="s2">"scripts/setup.sh"</span>
+        <span class="p">}</span>
+
+        <span class="nx">ansible_local</span> <span class="p">{</span>
+            <span class="nx">execute_order</span> <span class="p">=</span> <span class="mi">3</span>
+            <span class="nx">playbook_file</span> <span class="p">=</span> <span class="s2">"ansible/main.yml"</span>
+            <span class="nx">galaxy_file</span> <span class="p">=</span> <span class="s2">"requirements.yml"</span>
+        <span class="p">}</span>
+
+        <span class="nx">shell</span> <span class="p">{</span>
+            <span class="nx">execute_order</span> <span class="p">=</span> <span class="mi">4</span>
+            <span class="nx">execute_command</span> <span class="p">=</span> <span class="s2">"echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"</span>
+            <span class="nx">script</span> <span class="p">=</span> <span class="s2">"scripts/cleanup.sh"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">post_processors</span> <span class="p">{</span>
+        <span class="nx">vagrant</span> <span class="p">{</span>
+            <span class="nx">pipeline</span> <span class="p">{</span>
+                <span class="nx">set</span> <span class="p">=</span> <span class="mi">1</span> 
+                <span class="nx">order</span> <span class="p">=</span> <span class="mi">1</span>
+            <span class="p">}</span>
+
+            <span class="k">output</span> <span class="p">=</span> <span class="s2">"builds/{{.Provider}}-ubuntu1604.box"</span>
+        <span class="p">}</span>
+
+        <span class="nx">vagrant_cloud</span> <span class="p">{</span>
+            <span class="nx">pipeline</span> <span class="p">{</span>
+                <span class="nx">set</span> <span class="p">=</span> <span class="mi">1</span> 
+                <span class="nx">order</span> <span class="p">=</span> <span class="mi">2</span>
+            <span class="p">}</span>
+
+            <span class="nx">box_tag</span> <span class="p">=</span> <span class="s2">"geerlingguy/ubuntu1604"</span>
+            <span class="nx">version</span> <span class="p">=</span> <span class="s2">"{{user `version`}}"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">variables</span> <span class="p">{</span>
+        <span class="nx">version</span> <span class="p">=</span> <span class="s2">""</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre><h1 id='builders'>Builders</h1><h1 id='provisioners'>Provisioners</h1><h1 id='post-processors'>Post-Processors</h1><h1 id='examples'>Examples</h1>
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="terraform">terraform</a>
+                <a href="#" data-language-name="json">json</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

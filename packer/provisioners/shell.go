@@ -1,6 +1,9 @@
 package provisioners
 
-import "github.com/hashicorp/terraform/helper/schema"
+import (
+	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform/helper/validation"
+)
 
 func ShellResource() *schema.Resource {
 	return &schema.Resource{
@@ -9,6 +12,11 @@ func ShellResource() *schema.Resource {
 				Type:        schema.TypeInt,
 				Required:    true,
 				Description: "The order for this provisioner to run in",
+			},
+			"override": &schema.Schema{
+				Type:         schema.TypeString,
+				ValidateFunc: validation.ValidateJsonString,
+				Optional:     true,
 			},
 			"inline_shebang": &schema.Schema{
 				Optional:    true,

@@ -1,6 +1,7 @@
 package packer
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"github.com/hashicorp/terraform/helper/hashcode"
@@ -515,7 +516,18 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 				}
 
 				for f := range t {
-					if BlockNames[f] {
+					if f == "override" && t[f] != "" {
+						res := make(map[string]interface{})
+
+						err := json.Unmarshal([]byte(t[f].(string)), &res)
+
+						if err != nil {
+							return err
+						}
+
+						t[f] = res
+
+					} else if BlockNames[f] {
 						tempBlock := t[f]
 						t[f+"s"] = removeUnusedParams(d, tempBlock.([]interface{}), x, i, f, "provisioners", m)
 						delete(t, f)
@@ -657,14 +669,19 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 		res["variables"] = d.Get("variables")
 	}
 
-	result, err := json.MarshalIndent(res, "", "  ")
+	result := new(bytes.Buffer)
+	enc := json.NewEncoder(result)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "  ")
+
+	err := enc.Encode(res)
 
 	if err != nil {
 		return err
 	}
 
-	d.Set("json", string(result))
-	d.SetId(strconv.Itoa(hashcode.String(string(result))))
+	d.Set("json", string(result.String()))
+	d.SetId(strconv.Itoa(hashcode.String(string(result.String()))))
 
 	return nil
 }

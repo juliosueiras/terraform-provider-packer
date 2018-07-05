@@ -67,7 +67,7 @@ func VagrantCloudResource() *schema.Resource {
 			},
 
 			"access_token": &schema.Schema{
-				Required:    true,
+				Optional:    true,
 				Type:        schema.TypeString,
 				Description: "Your access token for the Vagrant Cloud API. This can be generated on your tokens page. If not specified, the environment will be searched. First, VAGRANT_CLOUD_TOKEN is checked, and if nothing is found, finally ATLAS_TOKEN will be used.",
 			},

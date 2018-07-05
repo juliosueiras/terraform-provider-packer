@@ -5,6 +5,10 @@ import "github.com/hashicorp/terraform/helper/schema"
 func SSHCommunicatorResource() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
+			"ssh_wait_timeout": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"ssh_username": &schema.Schema{
 				Type:        schema.TypeString,
 				Required:    true,
