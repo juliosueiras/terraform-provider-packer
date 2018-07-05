@@ -14,14 +14,22 @@ import (
 )
 
 var BlockNames = map[string]bool{
-	"ebs_volume":         true,
-	"image_disk_mapping": true,
-	"module_dir":         true,
+	"ebs_volume":                  true,
+	"image_disk_mapping":          true,
+	"launch_block_device_mapping": true,
+	"ami_block_device_mapping":    true,
+	"module_dir":                  true,
+	"chroot_mount":                true,
 }
 
 var SpecialNames = map[string]bool{
 	"vboxmanage":      true,
 	"vboxmanage_post": true,
+	"chroot_mount":    true,
+}
+
+var FlattenNames = map[string]bool{
+	"source_ami_filter": true,
 }
 
 func dataSourceJSON() *schema.Resource {
@@ -419,14 +427,27 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 				}
 
 				for f := range t {
-					if BlockNames[f] {
+					if FlattenNames[f] && t[f] != nil {
+						tempBlock := t[f].([]interface{})[0]
+						t[f] = tempBlock
+					} else if SpecialNames[f] && len(t[f].([]interface{})) != 0 && BlockNames[f] {
+						resultSpecial := make([][]string, len(t[f].([]interface{})))
+						for w, b := range t[f].([]interface{}) {
+
+							for _, value := range b.(map[string]interface{})["values"].([]interface{}) {
+								resultSpecial[w] = append(resultSpecial[w], value.(string))
+							}
+						}
+
+						t[f+"s"] = resultSpecial
+						delete(t, f)
+					} else if BlockNames[f] {
 						tempBlock := t[f]
 						t[f+"s"] = removeUnusedParams(d, tempBlock.([]interface{}), x, i, f, "builders", m)
 						delete(t, f)
 					} else if SpecialNames[f] && len(t[f].([]interface{})) != 0 {
 						resultSpecial := make([][]string, len(t[f].([]interface{})))
 						for w, b := range t[f].([]interface{}) {
-							resultSpecial[w] = append(resultSpecial[w], b.(map[string]interface{})["command"].(string))
 
 							for _, value := range b.(map[string]interface{})["values"].([]interface{}) {
 								resultSpecial[w] = append(resultSpecial[w], value.(string))

@@ -11,8 +11,8 @@ require further fine tune for builders with special blocks
 |Name|Status|
 |--|--|
 |Alicloud ECS|Finished|
-|Amazon Chroot|Foundation Done, require further cleanup|
-|Amazon EBS|Foundation Done, require further cleanup|
+|Amazon Chroot|Finished|
+|Amazon EBS|Finished|
 |Amazon EBS Surrogate|Foundation Done, require further cleanup|
 |Amazon EBS Volume|Foundation Done, require further cleanup|
 |Amazon Instance|Foundation Done, require further cleanup|

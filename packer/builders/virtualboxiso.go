@@ -351,12 +351,6 @@ func VirtualboxISOResource() *schema.Resource {
 				Type:     schema.TypeList,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-
-						"command": &schema.Schema{
-							Required:    true,
-							Type:        schema.TypeString,
-							Description: "Command for vboxmanage",
-						},
 						"values": &schema.Schema{
 							Required:    true,
 							Type:        schema.TypeList,
@@ -372,12 +366,6 @@ func VirtualboxISOResource() *schema.Resource {
 				Type:     schema.TypeList,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-
-						"command": &schema.Schema{
-							Required:    true,
-							Type:        schema.TypeString,
-							Description: "Command for vboxmanage",
-						},
 						"values": &schema.Schema{
 							Required:    true,
 							Type:        schema.TypeList,
