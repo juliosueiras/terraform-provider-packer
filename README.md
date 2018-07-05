@@ -6,6 +6,12 @@ A Terraform Provider to generate Packer JSON
 require further fine tune for builders with special blocks
 
 # Cleanup Status
+modified:   builders/digitalocean.go
+modified:   builders/docker.go
+modified:   builders/file.go
+modified:   builders/null.go
+modified:   builders/test.txt
+modified:   builders/vmwarevmx.go
 
 ## Builders
 |Name|Status|
@@ -18,16 +24,16 @@ require further fine tune for builders with special blocks
 |Amazon Instance|Foundation Done, require further cleanup|
 |AzureARM|Foundation Done, require further cleanup|
 |CloudStack|Foundation Done, require further cleanup|
-|DigitalOcean|Foundation Done, require further cleanup|
-|Docker|Foundation Done, require further cleanup|
-|File|Foundation Done, require further cleanup|
+|DigitalOcean|Finished|
+|Docker|Finished|
+|File|Finished|
 |GoogleCompute|Foundation Done, require further cleanup|
 |Hyper-V ISO|Foundation Done, require further cleanup|
 |Hyper-V VMCX|Foundation Done, require further cleanup|
 |LXC|Foundation Done, require further cleanup|
 |LXD|Foundation Done, require further cleanup|
 |NCloud|Foundation Done, require further cleanup|
-|Null|Foundation Done, require further cleanup|
+|Null|Finished|
 |One and One|Foundation Done, require further cleanup|
 |OpenStack|Foundation Done, require further cleanup|
 |Oracle Classic|Foundation Done, require further cleanup|
@@ -41,7 +47,7 @@ require further fine tune for builders with special blocks
 |Virtualbox ISO|Foundation Done, require further cleanup|
 |Virtualbox OVF|Foundation Done, require further cleanup|
 |VMware ISO|Finished|
-|VMware VMX|Foundation Done, require further cleanup|
+|VMware VMX|Finished|
 
 ## Provisioners
 |Name|Status|

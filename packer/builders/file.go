@@ -10,50 +10,22 @@ func FileResource() *schema.Resource {
 				Optional:    true,
 				Description: "for named builds",
 			},
-
-			"packer_build_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_builder_type": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_debug": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_force": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_on_error": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_user_variables": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeMap,
-			},
-
 			"source": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "The path for a file which will be copied as the artifact.",
 			},
 
 			"target": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Required:    true,
+				Type:        schema.TypeString,
+				Description: "The path for a file which will be copied as the artifact.",
 			},
 
 			"content": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "The content that will be put into the artifact.",
 			},
 		},
 	}
