@@ -41,7 +41,7 @@ modified:   profitbricks.go
 |QEMU|Foundation Done, require further cleanup|
 |Scaleway|Foundation Done, require further cleanup|
 |Triton|Foundation Done, require further cleanup|
-|Virtualbox ISO|Foundation Done, require further cleanup|
+|Virtualbox ISO|Finished|
 |Virtualbox OVF|Foundation Done, require further cleanup|
 |VMware ISO|Finished|
 |VMware VMX|Finished|
