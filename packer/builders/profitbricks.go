@@ -1,6 +1,9 @@
 package builders
 
-import "github.com/hashicorp/terraform/helper/schema"
+import (
+	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/juliosueiras/terraform-provider-packer/packer/communicators"
+)
 
 func ProfitbricksResource() *schema.Resource {
 	return &schema.Resource{
@@ -11,249 +14,89 @@ func ProfitbricksResource() *schema.Resource {
 				Description: "for named builds",
 			},
 
-			"packer_build_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_builder_type": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_debug": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_force": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_on_error": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_user_variables": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeMap,
-			},
-
 			"communicator": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeString,
 			},
-
-			"ssh_host": &schema.Schema{
+			"ssh": &schema.Schema{
 				Optional: true,
-				Type:     schema.TypeString,
+				Type:     schema.TypeList,
+				Elem:     communicators.SSHCommunicatorResource(),
 			},
-
-			"ssh_port": &schema.Schema{
+			"winrm": &schema.Schema{
 				Optional: true,
-				Type:     schema.TypeInt,
+				Type:     schema.TypeList,
+				Elem:     communicators.WinRMCommunicatorResource(),
 			},
-
-			"ssh_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_private_key_file": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_pty": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_timeout": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_agent_auth": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_disable_agent_forwarding": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_handshake_attempts": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"ssh_bastion_host": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_bastion_port": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"ssh_bastion_agent_auth": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_bastion_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_bastion_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_bastion_private_key_file": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_file_transfer_method": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_proxy_host": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_proxy_port": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"ssh_proxy_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_proxy_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_keep_alive_interval": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_read_write_timeout": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_host": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_port": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"winrm_timeout": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_use_ssl": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"winrm_insecure": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"winrm_use_ntlm": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
 			"username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "ProfitBricks username. This can be specified via environment variable `PROFITBRICKS_USERNAME', if provided. The value defined in the config has precedence over environemnt variable.",
 			},
 
 			"password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "ProfitBricks password. This can be specified via environment variable `PROFITBRICKS_PASSWORD', if provided. The value defined in the config has precedence over environemnt variable.",
 			},
 
 			"url": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: `Endpoint for the ProfitBricks REST API. Default URL "https://api.profitbricks.com/rest/v2"`,
 			},
 
 			"location": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: `Defaults to "us/las".`,
 			},
 
 			"image": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Required:    true,
+				Type:        schema.TypeString,
+				Description: "ProfitBricks volume image. Only Linux public images are supported. To obtain full list of available images you can use ProfitBricks CLI.",
 			},
 
 			"snapshot_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: `If snapshot name is not provided Packer will generate it`,
+			},
+			"snapshot_password": &schema.Schema{
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: `Password for the snapshot`,
 			},
 
 			"disk_size": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
+				Optional:    true,
+				Type:        schema.TypeInt,
+				Description: `Amount of disk space for this image in GB. Defaults to "50"`,
 			},
 
 			"disk_type": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: `Type of disk to use for this image. Defaults to "HDD".`,
 			},
 
 			"cores": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
+				Optional:    true,
+				Type:        schema.TypeInt,
+				Description: `Amount of CPU cores to use for this build. Defaults to "4".`,
 			},
 
 			"ram": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
+				Optional:    true,
+				Type:        schema.TypeInt,
+				Description: `Amount of RAM to use for this image. Defaults to "2048".`,
 			},
 
 			"retries": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
+				Optional:    true,
+				Type:        schema.TypeInt,
+				Description: `Number of retries Packer will make status requests while waiting for the build to complete. Default value 120 seconds.`,
 			},
 		},
 	}

@@ -1,6 +1,9 @@
 package builders
 
-import "github.com/hashicorp/terraform/helper/schema"
+import (
+	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/juliosueiras/terraform-provider-packer/packer/communicators"
+)
 
 func OneandoneResource() *schema.Resource {
 	return &schema.Resource{
@@ -10,230 +13,60 @@ func OneandoneResource() *schema.Resource {
 				Optional:    true,
 				Description: "for named builds",
 			},
-
-			"packer_build_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_builder_type": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_debug": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_force": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_on_error": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_user_variables": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeMap,
-			},
-
 			"communicator": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeString,
 			},
-
-			"ssh_host": &schema.Schema{
+			"ssh": &schema.Schema{
 				Optional: true,
-				Type:     schema.TypeString,
+				Type:     schema.TypeList,
+				Elem:     communicators.SSHCommunicatorResource(),
 			},
-
-			"ssh_port": &schema.Schema{
+			"winrm": &schema.Schema{
 				Optional: true,
-				Type:     schema.TypeInt,
+				Type:     schema.TypeList,
+				Elem:     communicators.WinRMCommunicatorResource(),
 			},
-
-			"ssh_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_private_key_file": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_pty": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_timeout": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_agent_auth": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_disable_agent_forwarding": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_handshake_attempts": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"ssh_bastion_host": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_bastion_port": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"ssh_bastion_agent_auth": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_bastion_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_bastion_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_bastion_private_key_file": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_file_transfer_method": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_proxy_host": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_proxy_port": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"ssh_proxy_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_proxy_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_keep_alive_interval": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_read_write_timeout": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_host": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_port": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"winrm_timeout": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_use_ssl": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"winrm_insecure": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"winrm_use_ntlm": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
 			"token": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Required:    true,
+				Type:        schema.TypeString,
+				Description: "1&1 REST API Token. This can be specified via environment variable ONEANDONE_TOKEN",
 			},
 
 			"url": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: `Endpoint for the 1&1 REST API. Default URL "https://cloudpanel-api.1and1.com/v1"`,
 			},
 
 			"image_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: `Resulting image. If "image_name" is not provided Packer will generate it`,
 			},
 
 			"data_center_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: `Name of virtual data center. Possible values "ES", "US", "GB", "DE". Default value "US"`,
 			},
 
 			"source_image_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Required:    true,
+				Type:        schema.TypeString,
+				Description: "1&1 Server Appliance name of type IMAGE.",
 			},
 
 			"disk_size": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
+				Optional:    true,
+				Type:        schema.TypeInt,
+				Description: `Amount of disk space for this image in GB. Defaults to "50"`,
 			},
 
 			"retries": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
+				Optional:    true,
+				Type:        schema.TypeInt,
+				Description: `Number of retries Packer will make status requests while waiting for the build to complete. Default value "600".`,
 			},
 		},
 	}

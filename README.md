@@ -5,13 +5,10 @@ A Terraform Provider to generate Packer JSON
 
 require further fine tune for builders with special blocks
 
+modified:   oneandone.go
+modified:   profitbricks.go
+
 # Cleanup Status
-modified:   builders/digitalocean.go
-modified:   builders/docker.go
-modified:   builders/file.go
-modified:   builders/null.go
-modified:   builders/test.txt
-modified:   builders/vmwarevmx.go
 
 ## Builders
 |Name|Status|
@@ -30,17 +27,17 @@ modified:   builders/vmwarevmx.go
 |GoogleCompute|Foundation Done, require further cleanup|
 |Hyper-V ISO|Foundation Done, require further cleanup|
 |Hyper-V VMCX|Foundation Done, require further cleanup|
-|LXC|Foundation Done, require further cleanup|
-|LXD|Foundation Done, require further cleanup|
-|NCloud|Foundation Done, require further cleanup|
+|LXC|Finished|
+|LXD|Finished|
+|NCloud|Finished|
 |Null|Finished|
-|One and One|Foundation Done, require further cleanup|
+|1&1|Finished|
 |OpenStack|Foundation Done, require further cleanup|
 |Oracle Classic|Foundation Done, require further cleanup|
 |Oracle OCI|Foundation Done, require further cleanup|
 |Parallels ISO|Foundation Done, require further cleanup|
 |Parallels PVM|Foundation Done, require further cleanup|
-|Profitbricks|Foundation Done, require further cleanup|
+|Profitbricks|Finished|
 |QEMU|Foundation Done, require further cleanup|
 |Scaleway|Foundation Done, require further cleanup|
 |Triton|Foundation Done, require further cleanup|

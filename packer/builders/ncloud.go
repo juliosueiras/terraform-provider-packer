@@ -1,6 +1,9 @@
 package builders
 
-import "github.com/hashicorp/terraform/helper/schema"
+import (
+	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/juliosueiras/terraform-provider-packer/packer/communicators"
+)
 
 func NCloudResource() *schema.Resource {
 	return &schema.Resource{
@@ -11,254 +14,97 @@ func NCloudResource() *schema.Resource {
 				Description: "for named builds",
 			},
 
-			"packer_build_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+			"ncloud_access_key": &schema.Schema{
+				Required:    true,
+				Type:        schema.TypeString,
+				Description: "User's access key. Go to [Account Management > Authentication Key] to create and view your authentication key.",
 			},
 
-			"packer_builder_type": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_debug": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_force": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"packer_on_error": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"packer_user_variables": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeMap,
-			},
-
-			"access_key": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"secret_key": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+			"ncloud_secret_key": &schema.Schema{
+				Required:    true,
+				Type:        schema.TypeString,
+				Description: "User's secret key paired with the access key. Go to [Account Management > Authentication Key] to create and view your authentication key.",
 			},
 
 			"server_image_product_code": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "Product code of an image to create. (member_server_image_no is required if not specified)",
 			},
 
 			"server_product_code": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "Product (spec) code to create",
 			},
 
 			"member_server_image_no": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "Previous image code. If there is an image previously created, it can be used to create a new image. (server_image_product_code is required if not specified)",
 			},
 
 			"server_image_name": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "Name of an image to create.",
 			},
 
 			"server_image_description": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "Description of an image to create",
 			},
 
 			"user_data": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeString,
+				Description: `Init script to run when an instance is created.
+
+				For Linux servers, Python, Perl, and Shell scripts can be used. The path of the script to run should be included at the beginning of the script, like #!/usr/bin/env python, #!/bin/perl, or #!/bin/bash.
+				For Windows servers, only Visual Basic scripts can be used.
+				All scripts must be written in English.`,
 			},
 
 			"user_data_file": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "A path to a file containing a user_data script. See above for more information.",
 			},
 
 			"block_storage_size": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
+				Optional:    true,
+				Type:        schema.TypeInt,
+				Description: "You can add block storage ranging from 10 GB to 2000 GB, in increments of 10 GB",
 			},
 
 			"region": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeString,
+				Description: `Name of the region where you want to create an image. (default: Korea)
+
+				values: Korea / US-West / HongKong / Singapore / Japan / Germany`,
 			},
 
 			"access_control_group_configuration_no": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
+				Optional:    true,
+				Type:        schema.TypeString,
+				Description: "This is used to allow winrm access when you create a Windows server. An ACG that specifies an access source (0.0.0.0/0) and allowed port (5985) must be created in advance.",
 			},
 
 			"communicator": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeString,
 			},
-
-			"ssh_host": &schema.Schema{
+			"ssh": &schema.Schema{
 				Optional: true,
-				Type:     schema.TypeString,
+				Type:     schema.TypeList,
+				Elem:     communicators.SSHCommunicatorResource(),
 			},
-
-			"ssh_port": &schema.Schema{
+			"winrm": &schema.Schema{
 				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"ssh_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_private_key_file": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_pty": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_timeout": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_agent_auth": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_disable_agent_forwarding": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_handshake_attempts": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"ssh_bastion_host": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_bastion_port": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"ssh_bastion_agent_auth": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"ssh_bastion_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_bastion_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_bastion_private_key_file": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_file_transfer_method": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_proxy_host": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_proxy_port": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"ssh_proxy_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_proxy_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_keep_alive_interval": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"ssh_read_write_timeout": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_username": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_password": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_host": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_port": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeInt,
-			},
-
-			"winrm_timeout": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeString,
-			},
-
-			"winrm_use_ssl": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"winrm_insecure": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
-			},
-
-			"winrm_use_ntlm": &schema.Schema{
-				Optional: true,
-				Type:     schema.TypeBool,
+				Type:     schema.TypeList,
+				Elem:     communicators.WinRMCommunicatorResource(),
 			},
 		},
 	}
