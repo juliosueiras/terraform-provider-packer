@@ -5,9 +5,6 @@ A Terraform Provider to generate Packer JSON
 
 require further fine tune for builders with special blocks
 
-modified:   oneandone.go
-modified:   profitbricks.go
-
 # Cleanup Status
 
 ## Builders
