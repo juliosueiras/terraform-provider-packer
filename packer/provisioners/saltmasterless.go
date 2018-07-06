@@ -13,6 +13,11 @@ func SaltMasterlessResource() *schema.Resource {
 				Required:    true,
 				Description: "The order for this provisioner to run in",
 			},
+			"override": &schema.Schema{
+				Type:         schema.TypeString,
+				ValidateFunc: validation.ValidateJsonString,
+				Optional:     true,
+			},
 
 			"skip_bootstrap": &schema.Schema{
 				Optional:    true,

@@ -13,6 +13,11 @@ func ChefSoloResource() *schema.Resource {
 				Required:    true,
 				Description: "The order for this provisioner to run in",
 			},
+			"override": &schema.Schema{
+				Type:         schema.TypeString,
+				ValidateFunc: validation.ValidateJsonString,
+				Optional:     true,
+			},
 			"chef_environment": &schema.Schema{
 				Optional:    true,
 				Type:        schema.TypeString,
