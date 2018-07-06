@@ -265,11 +265,6 @@ func VirtualboxISOResource() *schema.Resource {
 				Description: "The minimum and maximum port to use for the SSH port on the host machine which is forwarded to the SSH port on the guest machine. Because Packer often runs in parallel, Packer will choose a randomly available port in this range to use as the host port. By default this is 2222 to 4444.",
 				Type:        schema.TypeInt,
 			},
-			"ssh_host_port_max": &schema.Schema{
-				Optional:    true,
-				Description: "The minimum and maximum port to use for the SSH port on the host machine which is forwarded to the SSH port on the guest machine. Because Packer often runs in parallel, Packer will choose a randomly available port in this range to use as the host port. By default this is 2222 to 4444.",
-				Type:        schema.TypeInt,
-			},
 			"ssh_skip_nat_mapping": &schema.Schema{
 				Optional:    true,
 				Description: "Defaults to false. When enabled, Packer does not setup forwarded port mapping for SSH requests and uses ssh_port on the host to communicate to the virtual machine.",
