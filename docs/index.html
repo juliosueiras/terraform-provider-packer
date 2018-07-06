@@ -244,6 +244,12 @@
                   <li>
                     <a href="#override" class="toc-h2 toc-link" data-title="override">Override</a>
                   </li>
+                  <li>
+                    <a href="#ssh-block" class="toc-h2 toc-link" data-title="ssh-block">SSH Block</a>
+                  </li>
+                  <li>
+                    <a href="#winrm-block" class="toc-h2 toc-link" data-title="winrm-block">WinRM Block</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -696,9 +702,271 @@
 <span class="p">}</span>
 </code></pre>
 <p>This is an example with both ordering of provisioners and sequence definition of post-processors</p>
-<h1 id='special-notes'>Special Notes</h1><h2 id='named-build'>Named Build</h2><h2 id='ordering-in-provisioners'>Ordering in Provisioners</h2><h2 id='sequence-definition'>Sequence Definition</h2><h2 id='override'>Override</h2><h1 id='builders'>Builders</h1><h2 id='alicloud-ecs'>Alicloud ECS</h2>
+<h1 id='special-notes'>Special Notes</h1><h2 id='named-build'>Named Build</h2><pre class="highlight terraform tab-terraform"><code><span class="k">data</span> <span class="s2">"packer_json"</span> <span class="s2">"default"</span> <span class="p">{</span>
+    <span class="nx">builders</span> <span class="p">{</span>
+        <span class="kc">null</span> <span class="p">{</span>
+            <span class="nx">communicator</span> <span class="p">=</span> <span class="s2">"ssh"</span>
+            <span class="nx">name</span> <span class="p">=</span> <span class="s2">"test"</span>
+            <span class="nx">ssh</span> <span class="p">{</span>
+                <span class="nx">ssh_username</span> <span class="p">=</span> <span class="s2">"test_username"</span>
+                <span class="nx">ssh_password</span> <span class="p">=</span> <span class="s2">"test_password"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="kc">null</span> <span class="p">{</span>
+            <span class="nx">communicator</span> <span class="p">=</span> <span class="s2">"ssh"</span>
+            <span class="nx">name</span> <span class="p">=</span> <span class="s2">"test2"</span>
+            <span class="nx">ssh</span> <span class="p">{</span>
+                <span class="nx">ssh_username</span> <span class="p">=</span> <span class="s2">"test_username"</span>
+                <span class="nx">ssh_password</span> <span class="p">=</span> <span class="s2">"test_password"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"builders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"communicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ssh"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ssh_password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_password"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ssh_username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"communicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ssh"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ssh_password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_password"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ssh_username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test_username"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"post-processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"provisioners"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>To create named builders to use name parameter in the block</p>
+<h2 id='ordering-in-provisioners'>Ordering in Provisioners</h2><pre class="highlight terraform tab-terraform"><code><span class="k">data</span> <span class="s2">"packer_json"</span> <span class="s2">"default"</span> <span class="p">{</span>
+    <span class="nx">provisioners</span> <span class="p">{</span>
+        <span class="nx">shell</span> <span class="p">{</span>
+            <span class="nx">execute_order</span> <span class="p">=</span> <span class="mi">1</span>
+            <span class="nx">script</span> <span class="p">=</span> <span class="s2">"echo 'Hi'"</span>
+        <span class="p">}</span>
+
+        <span class="nx">shell</span> <span class="p">{</span>
+            <span class="nx">execute_order</span> <span class="p">=</span> <span class="mi">2</span>
+            <span class="nx">script</span> <span class="p">=</span> <span class="s2">"echo 'Hi Again'"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"builders"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"post-processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"provisioners"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo 'Hi'"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shell"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo 'Hi Again'"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shell"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Because terraform is a declarative language, and provisioners block is execute by the order, a workaround is introduced.</p>
+
+<p><code>execute_order</code> is a require parameter in all provisioner, it denote the order of the current provisioner in the resulting json</p>
+<h2 id='sequence-definition'>Sequence Definition</h2><pre class="highlight terraform tab-terraform"><code><span class="k">data</span> <span class="s2">"packer_json"</span> <span class="s2">"default"</span> <span class="p">{</span>
+    <span class="nx">post_processors</span> <span class="p">{</span>
+        <span class="nx">compress</span> <span class="p">{</span>
+            <span class="nx">pipeline</span> <span class="p">{</span>
+                <span class="nx">set</span> <span class="p">=</span> <span class="mi">1</span> 
+                <span class="nx">order</span> <span class="p">=</span> <span class="mi">1</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="nx">checksum</span> <span class="p">{</span>
+            <span class="nx">pipeline</span> <span class="p">{</span>
+                <span class="nx">set</span> <span class="p">=</span> <span class="mi">1</span> 
+                <span class="nx">order</span> <span class="p">=</span> <span class="mi">2</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="nx">manifest</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"builders"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"post-processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"manifest"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"compress"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checksum"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"provisioners"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Same situation as ordering in provisioners, to create sequence definition in post-processors a workaround was introduced</p>
+
+<p><code>pipeline</code> block consists two require parameter, <code>order</code> and <code>set</code>.</p>
+
+<p><code>set</code> denote the sequence set, in scenario that a person want multiple sequence definition</p>
+
+<p><code>order</code> denote the order of the current post-processor in the sequence</p>
+<h2 id='override'>Override</h2><pre class="highlight terraform tab-terraform"><code><span class="k">data</span> <span class="s2">"packer_json"</span> <span class="s2">"default"</span> <span class="p">{</span>
+    <span class="nx">provisioners</span> <span class="p">{</span>
+        <span class="nx">shell</span> <span class="p">{</span>
+            <span class="nx">execute_order</span> <span class="p">=</span> <span class="mi">1</span>
+
+            <span class="nx">execute_command</span> <span class="p">=</span> <span class="s2">"Not again"</span>
+
+            <span class="nx">override</span> <span class="p">=</span><span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+            {
+                "vmware-iso": {
+                    "execute_command":"Hi"
+                }
+            }
+</span><span class="no">EOF
+</span>        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"builders"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"post-processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"provisioners"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"execute_command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Not again"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"override"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"vmware-iso"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"execute_command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hi"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shell"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>As of now, terraform has issue dealing multi-depth type with map, so a workaround for override is introduce, the parameter accept string, but is recommended to use heredoc, also the string will be validated to ensure is a valid json string</p>
+<h2 id='ssh-block'>SSH Block</h2><pre class="highlight terraform tab-terraform"><code><span class="k">data</span> <span class="s2">"packer_json"</span> <span class="s2">"default"</span> <span class="p">{</span>
+    <span class="nx">builders</span> <span class="p">{</span>
+        <span class="nx">virtualbox_iso</span> <span class="p">{</span>
+            <span class="nx">iso</span> <span class="p">{</span>
+                <span class="nx">iso_url</span> <span class="p">=</span> <span class="s2">"test"</span>
+                <span class="nx">iso_checksum</span> <span class="p">=</span> <span class="s2">"test"</span>
+                <span class="nx">iso_checksum_type</span> <span class="p">=</span> <span class="s2">"none"</span>
+            <span class="p">}</span>
+
+            <span class="nx">ssh</span> <span class="p">{</span>
+                <span class="nx">ssh_username</span> <span class="p">=</span> <span class="s2">"test"</span>
+                <span class="nx">ssh_password</span> <span class="p">=</span> <span class="s2">"test"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"builders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iso_checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iso_checksum_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iso_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ssh_password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ssh_username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"virtualbox-iso"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"post-processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"provisioners"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>SSH in builders that supported are in its own block</p>
+<h2 id='winrm-block'>WinRM Block</h2><pre class="highlight terraform tab-terraform"><code><span class="k">data</span> <span class="s2">"packer_json"</span> <span class="s2">"default"</span> <span class="p">{</span>
+    <span class="nx">builders</span> <span class="p">{</span>
+        <span class="nx">virtualbox_iso</span> <span class="p">{</span>
+            <span class="nx">iso</span> <span class="p">{</span>
+                <span class="nx">iso_url</span> <span class="p">=</span> <span class="s2">"test"</span>
+                <span class="nx">iso_checksum</span> <span class="p">=</span> <span class="s2">"test"</span>
+                <span class="nx">iso_checksum_type</span> <span class="p">=</span> <span class="s2">"none"</span>
+            <span class="p">}</span>
+
+            <span class="nx">winrm</span> <span class="p">{</span>
+                <span class="nx">winrm_username</span> <span class="p">=</span> <span class="s2">"test"</span>
+                <span class="nx">winrm_password</span> <span class="p">=</span> <span class="s2">"test"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"builders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"iso_checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iso_checksum_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iso_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"virtualbox-iso"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"winrm_password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"winrm_username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"post-processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"provisioners"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>WinRM in builders that supported are in its own block</p>
+<h1 id='builders'>Builders</h1><h2 id='alicloud-ecs'>Alicloud ECS</h2>
 <p><strong>Block Name:</strong> <code>alicloud_ecs</code></p>
-<h2 id='amazon-chroot'>Amazon Chroot</h2>
+
+<p><strong>Special Note:</strong></p>
+<h3 id='image_disk_mappings'>image_disk_mappings</h3><pre class="highlight terraform tab-terraform"><code><span class="k">data</span> <span class="s2">"packer_json"</span> <span class="s2">"default"</span> <span class="p">{</span>
+    <span class="nx">builders</span> <span class="p">{</span>
+        <span class="nx">alicloud_ecs</span> <span class="p">{</span>
+            <span class="nx">access_key</span> <span class="p">=</span> <span class="s2">"none"</span>
+            <span class="nx">secret_key</span> <span class="p">=</span> <span class="s2">"none"</span>
+            <span class="nx">region</span> <span class="p">=</span> <span class="s2">"none"</span>
+            <span class="nx">image_name</span> <span class="p">=</span> <span class="s2">"none"</span>
+            <span class="nx">source_image</span> <span class="p">=</span> <span class="s2">"none"</span>
+            <span class="nx">instance_type</span> <span class="p">=</span> <span class="s2">"none"</span>
+
+            <span class="nx">image_disk_mapping</span> <span class="p">{</span>
+                <span class="nx">disk_category</span> <span class="p">=</span> <span class="s2">"cloud_ssd"</span>
+            <span class="p">}</span>
+
+            <span class="nx">image_disk_mapping</span> <span class="p">{</span>
+                <span class="nx">disk_category</span> <span class="p">=</span> <span class="s2">"cloud"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"builders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"access_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image_disk_mappings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"disk_category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cloud_ssd"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"disk_category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cloud"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"image_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"instance_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"secret_key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"source_image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alicloud-ecs"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"post-processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"provisioners"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='amazon-chroot'>Amazon Chroot</h2>
 <p><strong>Block Name:</strong> <code>amazon_chroot</code></p>
 <h2 id='amazon-ebs'>Amazon EBS</h2>
 <p><strong>Block Name:</strong> <code>amazon_ebs</code></p>
@@ -754,7 +1022,57 @@
 <p><strong>Block Name:</strong> <code>triton</code></p>
 <h2 id='virtualbox-iso'>Virtualbox ISO</h2>
 <p><strong>Block Name:</strong> <code>virtualbox_iso</code></p>
-<h2 id='virtualbox-ovf'>Virtualbox OVF</h2>
+<pre class="highlight terraform tab-terraform"><code><span class="k">data</span> <span class="s2">"packer_json"</span> <span class="s2">"default"</span> <span class="p">{</span>
+    <span class="nx">builders</span> <span class="p">{</span>
+        <span class="nx">virtualbox_iso</span> <span class="p">{</span>
+            <span class="nx">communicator</span> <span class="p">=</span> <span class="s2">"ssh"</span>
+            <span class="nx">iso</span> <span class="p">{</span>
+                <span class="nx">iso_url</span> <span class="p">=</span> <span class="s2">"test"</span>
+                <span class="nx">iso_checksum</span> <span class="p">=</span> <span class="s2">"test"</span>
+                <span class="nx">iso_checksum_type</span> <span class="p">=</span> <span class="s2">"none"</span>
+            <span class="p">}</span>
+
+            <span class="nx">vboxmanage</span> <span class="p">{</span>
+                <span class="nx">values</span> <span class="p">=</span> <span class="p">[</span> <span class="s2">"modifyvm"</span><span class="p">,</span> <span class="s2">"{{.Name}}"</span><span class="p">,</span> <span class="s2">"--memory"</span><span class="p">,</span> <span class="s2">"1024"</span><span class="p">]</span>
+            <span class="p">}</span>
+
+            <span class="nx">vboxmanage</span> <span class="p">{</span>
+                <span class="nx">values</span> <span class="p">=</span> <span class="p">[</span> <span class="s2">"modifyvm"</span><span class="p">,</span> <span class="s2">"{{.Name}}"</span><span class="p">,</span> <span class="s2">"--cpus"</span><span class="p">,</span> <span class="s2">"1"</span> <span class="p">]</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"builders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"communicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ssh"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iso_checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iso_checksum_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"iso_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"virtualbox-iso"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"vboxmanage"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"modifyvm"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"{{.Name}}"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"--memory"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"1024"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"modifyvm"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"{{.Name}}"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"--cpus"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"1"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"post-processors"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"provisioners"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><strong>Special Note:</strong> </p>
+<h3 id='vboxmanage-and-vboxmanage_post'>vboxmanage and vboxmanage_post</h3><h2 id='virtualbox-ovf'>Virtualbox OVF</h2>
 <p><strong>Block Name:</strong> <code>virtualbox_ovf</code></p>
 <h2 id='vmware-iso'>VMware ISO</h2>
 <p><strong>Block Name:</strong> <code>vmware_iso</code></p>
