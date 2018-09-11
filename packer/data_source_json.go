@@ -428,7 +428,7 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 				}
 
 				for f := range t {
-					if FlattenNames[f] && t[f] != nil {
+					if FlattenNames[f] && t[f] != nil && len(t[f].([]interface{})) != 0 {
 						tempBlock := t[f].([]interface{})[0]
 						t[f] = tempBlock
 					} else if SpecialNames[f] && len(t[f].([]interface{})) != 0 && BlockNames[f] {
