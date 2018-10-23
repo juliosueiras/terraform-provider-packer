@@ -647,6 +647,7 @@ func dataSourceJSONRead(d *schema.ResourceData, meta interface{}) error {
 					delete(t, "pipeline")
 					pipelines[set-1][order-1] = t
 				} else {
+					delete(t, "pipeline")
 					postprocessors = append(postprocessors, t)
 				}
 			}
