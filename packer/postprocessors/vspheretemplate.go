@@ -53,6 +53,26 @@ func VSphereTemplateResource() *schema.Resource {
 				Type:        schema.TypeBool,
 				Description: "If it's true skip verification of server certificate. Default is false",
 			},
+			"snapshot_enable": &schema.Schema{
+				Optional: true,
+				Type:     schema.TypeBool,
+			},
+			"snapshot_name": &schema.Schema{
+				Optional: true,
+				Type:     schema.TypeString,
+			},
+			"snapshot_description": &schema.Schema{
+				Optional: true,
+				Type:     schema.TypeString,
+			},
+			"snapshot_memory": &schema.Schema{
+				Optional: true,
+				Type:     schema.TypeBool,
+			},
+			"snapshot_quiesce": &schema.Schema{
+				Optional: true,
+				Type:     schema.TypeBool,
+			},
 
 			"username": &schema.Schema{
 				Required:    true,
