@@ -223,6 +223,16 @@ func builderResource() *schema.Resource {
 				Optional: true,
 				Elem:     builders.VMWareVMXResource(),
 			},
+			"vsphere_iso": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     builders.VSphereISOResource(),
+			},
+			"vsphere_clone": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     builders.VSphereCloneResource(),
+			},
 		},
 	}
 }
