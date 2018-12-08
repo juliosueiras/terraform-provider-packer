@@ -22,6 +22,17 @@ func VMWareVMXResource() *schema.Resource {
 				Type:     schema.TypeList,
 				Elem:     communicators.SSHCommunicatorResource(),
 			},
+			"keep_registered": &schema.Schema{
+				Optional:    true,
+				Type:        schema.TypeBool,
+				Description: "Set this to true if you would like to keep the VM registered with the remote ESXi server. This is convenient if you use packer to provision VMs on ESXi and don't want to use ovftool to deploy the resulting artifact (VMX or OVA or whatever you used as format). Defaults to false.",
+			},
+			"skip_export": &schema.Schema{
+				Optional:    true,
+				Type:        schema.TypeBool,
+				Description: "Defaults to false. When enabled, Packer will not export the VM. Useful if the build output is not the resultant image, but created inside the VM",
+			},
+
 			"winrm": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeList,
