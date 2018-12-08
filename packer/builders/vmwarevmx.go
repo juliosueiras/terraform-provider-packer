@@ -179,6 +179,68 @@ func VMWareVMXResource() *schema.Resource {
 				Description: "This is the name of the VMX file for the new virtual machine, without the file extension. By default this is packer-BUILDNAME, where \"BUILDNAME\" is the name of the build.",
 				Type:        schema.TypeString,
 			},
+			"remote": &schema.Schema{
+				Optional: true,
+				Type:     schema.TypeList,
+				MaxItems: 1,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+
+						"remote_type": &schema.Schema{
+							Optional:    true,
+							Type:        schema.TypeString,
+							Description: "The type of remote machine that will be used to build this VM rather than a local desktop product. The only value accepted for this currently is esx5. If this is not set, a desktop product will be used. By default, this is not set.",
+						},
+
+						"remote_datastore": &schema.Schema{
+							Optional:    true,
+							Type:        schema.TypeString,
+							Description: "The path to the datastore where the resulting VM will be stored when it is built on the remote machine. By default this is datastore1. This only has an effect if remote_type is enabled.",
+						},
+
+						"remote_cache_datastore": &schema.Schema{
+							Optional:    true,
+							Type:        schema.TypeString,
+							Description: "The path to the datastore where supporting files will be stored during the build on the remote machine. By default this is the same as the remote_datastore option. This only has an effect if remote_type is enabled.",
+						},
+
+						"remote_cache_directory": &schema.Schema{
+							Optional:    true,
+							Type:        schema.TypeString,
+							Description: "The path where the ISO and/or floppy files will be stored during the build on the remote machine. The path is relative to the remote_cache_datastore on the remote machine. By default this is packer_cache. This only has an effect if remote_type is enabled.",
+						},
+
+						"remote_host": &schema.Schema{
+							Required:    true,
+							Type:        schema.TypeString,
+							Description: "The host of the remote machine used for access. This is only required if remote_type is enabled.",
+						},
+
+						"remote_port": &schema.Schema{
+							Optional: true,
+							Type:     schema.TypeInt,
+						},
+
+						"remote_username": &schema.Schema{
+							Required:    true,
+							Type:        schema.TypeString,
+							Description: "The username for the SSH user that will access the remote machine. This is required if remote_type is enabled.",
+						},
+
+						"remote_password": &schema.Schema{
+							Optional:    true,
+							Type:        schema.TypeString,
+							Description: "The SSH password for the user used to access the remote machine. By default this is empty. This only has an effect if remote_type is enabled.",
+						},
+
+						"remote_private_key_file": &schema.Schema{
+							Optional:    true,
+							Type:        schema.TypeString,
+							Description: "The path to the PEM encoded private key file for the user used to access the remote machine. By default this is empty. This only has an effect if remote_type is enabled.",
+						},
+					},
+				},
+			},
 		},
 	}
 }
