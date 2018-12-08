@@ -121,39 +121,39 @@ func VSphereISOResource() *schema.Resource {
 				Optional: true,
 				Type:     schema.TypeString,
 			},
-			"CPUs": &schema.Schema{
+			"cpus": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeInt,
 			},
-			"CPU_limit": &schema.Schema{
+			"cpu_limit": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeInt,
 			},
-			"CPU_reservation": &schema.Schema{
+			"cpu_reservation": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeInt,
 			},
-			"CPU_hot_plug": &schema.Schema{
+			"cpu_hot_plug": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeBool,
 			},
-			"RAM": &schema.Schema{
+			"ram": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeInt,
 			},
-			"RAM_reservation": &schema.Schema{
+			"ram_reservation": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeInt,
 			},
-			"RAM_reserve_all": &schema.Schema{
+			"ram_reserve_all": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeBool,
 			},
-			"RAM_hot_plug": &schema.Schema{
+			"ram_hot_plug": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeBool,
 			},
-			"NestedHV": &schema.Schema{
+			"nestedhv": &schema.Schema{
 				Optional: true,
 				Type:     schema.TypeBool,
 			},
