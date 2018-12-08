@@ -27,6 +27,11 @@ func VMWareVMXResource() *schema.Resource {
 				Type:        schema.TypeBool,
 				Description: "Set this to true if you would like to keep the VM registered with the remote ESXi server. This is convenient if you use packer to provision VMs on ESXi and don't want to use ovftool to deploy the resulting artifact (VMX or OVA or whatever you used as format). Defaults to false.",
 			},
+			"linked": &schema.Schema{
+				Optional:    true,
+				Type:        schema.TypeBool,
+				Description: "By default Packer creates a 'full' clone of the virtual machine specified in source_path. The resultant virtual machine is fully independant from the parent it was cloned from.  Setting linked to true instead causes Packer to create the virtual machine as a 'linked' clone. Linked clones use and require ongoing access to the disks of the parent virtual machine. The benefit of a linked clone is that the clones virtual disk is typically very much smaller than would be the case for a full clone. Additionally, the cloned virtual machine can also be created much faster. Creating a linked clone will typically only be of benefit in some advanced build scenarios. Most users will wish to create a full clone instead. Defaults to false.",
+			},
 			"skip_export": &schema.Schema{
 				Optional:    true,
 				Type:        schema.TypeBool,
@@ -41,6 +46,11 @@ func VMWareVMXResource() *schema.Resource {
 			"http_directory": &schema.Schema{
 				Optional:    true,
 				Description: "Path to a directory to serve using an HTTP server. The files in this directory will be available over HTTP that will be requestable from the virtual machine. This is useful for hosting kickstart files and so on. By default this is an empty string, which means no HTTP server will be started. The address and port of the HTTP server will be available as variables in boot_command. This is covered in more detail below.",
+				Type:        schema.TypeString,
+			},
+			"format": &schema.Schema{
+				Optional:    true,
+				Description: "Either \"ovf\", \"ova\" or \"vmx\", this specifies the output format of the exported virtual machine. This defaults to \"ovf\". Before using this option, you need to install ovftool.",
 				Type:        schema.TypeString,
 			},
 
@@ -73,6 +83,11 @@ func VMWareVMXResource() *schema.Resource {
 			"boot_wait": &schema.Schema{
 				Optional:    true,
 				Description: "The time to wait after booting the initial virtual machine before typing the boot_command. The value of this should be a duration. Examples are 5s and 1m30s which will cause Packer to wait five seconds and one minute 30 seconds, respectively. If this isn't specified, the default is 10s or 10 seconds.",
+				Type:        schema.TypeString,
+			},
+			"display_name": &schema.Schema{
+				Optional:    true,
+				Description: "The name that will appear in your vSphere client, and will be used for the vmx basename. This will override the \"displayname\" value in your vmx file. It will also override the \"displayname\" if you have set it in the \"vmx_data\" Packer option. This option is useful if you are chaining vmx builds and want to make sure that the display name of each step in the chain is unique: the vmware-vmx builder will use the displayname of the VM being cloned from if it is not explicitly specified via the vmx_data section or the displayname property.",
 				Type:        schema.TypeString,
 			},
 
@@ -176,6 +191,11 @@ func VMWareVMXResource() *schema.Resource {
 			"skip_compaction": &schema.Schema{
 				Optional:    true,
 				Description: "VMware-created disks are defragmented and compacted at the end of the build process using vmware-vdiskmanager. In certain rare cases, this might actually end up making the resulting disks slightly larger. If you find this to be the case, you can disable compaction using this configuration value. Defaults to false.",
+				Type:        schema.TypeBool,
+			},
+			"skip_validate_credentials": &schema.Schema{
+				Optional:    true,
+				Description: "When Packer is preparing to run a remote esxi build, and export is not disable, by default it runs a no-op ovftool command to make sure that the remote_username and remote_password given are valid. If you set this flag to true, Packer will skip this validation. Default: false.",
 				Type:        schema.TypeBool,
 			},
 
